@@ -60,38 +60,55 @@ class SecondViewController: UIViewController {
         button.layer.cornerRadius = 15
         return button
     }()
+    
+    let vStack1 = UIStackView()
+    let vStack2 = UIStackView()
+    let hStack = UIStackView().prepare()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor(red: 0.4, green: 0.5, blue: 0.3, alpha: 1)
         view.addSubview(label)
-        view.addSubview(gribokButton)
-        view.addSubview(vishniButton)
-        view.addSubview(olivkaButton)
-        view.addSubview(baklazButton)
+//        view.addSubview(gribokButton)
+//        view.addSubview(vishniButton)
+//        view.addSubview(olivkaButton)
+//        view.addSubview(baklazButton)
         view.addSubview(doneButton)
+        view.addSubview(hStack)
         
+        vStack1.addArrangedSubview(gribokButton)
+        vStack1.addArrangedSubview(vishniButton)
+        vStack1.axis = .vertical
+        vStack1.spacing = 30
         
+        vStack2.addArrangedSubview(olivkaButton)
+        vStack2.addArrangedSubview(baklazButton)
+        vStack2.axis = .vertical
+        vStack2.spacing = 30
+        
+        hStack.addArrangedSubview(vStack1)
+        hStack.addArrangedSubview(vStack2)
+        hStack.axis = .horizontal
+        hStack.spacing = 30
         
         navigationItem.rightBarButtonItem = rulesButton
         
+        // 1 create UIStackView
+        // 2 set axis horizontal to stackView
+        // 3 add arranged subviews (buttons)
+        // 4 place stackView at centerX
+        // 5 repeat for second stackView
+        // 6 (optional, best practice) Create vertical stackView
         
         NSLayoutConstraint.activate([
             label.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
             label.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15),
             label.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15),
             
-            gribokButton.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 100),
-            gribokButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 50),
-            
-            vishniButton.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 100),
-            vishniButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -50),
-            
-            olivkaButton.topAnchor.constraint(equalTo: gribokButton.bottomAnchor, constant: 10),
-            olivkaButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 50),
-            
-            baklazButton.topAnchor.constraint(equalTo: vishniButton.bottomAnchor, constant: 10),
-            baklazButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -50),
+            hStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            hStack.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 100),
             
             doneButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
             doneButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 100),
