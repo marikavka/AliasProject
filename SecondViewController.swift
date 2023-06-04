@@ -161,7 +161,7 @@ class SecondViewController: UIViewController {
         }
     }
     @objc func doneButtonTapped() {
-        let vc = ThirdViewController()
+        let vc = ChooseTopicViewController()
         navigationItem.backButtonTitle = ""
         navigationController?.pushViewController(vc, animated: true)
     }
