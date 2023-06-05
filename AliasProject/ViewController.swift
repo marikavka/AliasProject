@@ -52,11 +52,11 @@ final class ViewController: UIViewController {
         button.layer.cornerRadius = 15
         
         NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
+            label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 70),
             label.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15),
             label.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15),
             
-            button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
+            button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -70),
             button.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 100),
             button.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -100),
             

@@ -93,19 +93,18 @@ final class ChooseTopicViewController: UIViewController {
             label.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15),
             
             buttonStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            buttonStack.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            buttonStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 100)
+            buttonStack.topAnchor.constraint(equalTo: label.topAnchor, constant: 100),
+            buttonStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 100),
+            buttonStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -100)
         ])
 
     }
     @objc func buttonTapped() {
-        let vc = ThirdViewController()
-        let navVC = UINavigationController(rootViewController: vc)
-        navVC.navigationBar.tintColor = .black
-        navVC.modalTransitionStyle = .flipHorizontal
-        navVC.modalPresentationStyle = .fullScreen
-        present(navVC, animated: true)
+        let vc = StartGameAndPointsViewController()
+        navigationItem.backButtonTitle = ""
+        navigationController?.pushViewController(vc, animated: true)
     }
+        
 
 }
 

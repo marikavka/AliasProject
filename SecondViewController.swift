@@ -71,10 +71,6 @@ class SecondViewController: UIViewController {
         
         view.backgroundColor = UIColor(red: 0.4, green: 0.5, blue: 0.3, alpha: 1)
         view.addSubview(label)
-//        view.addSubview(gribokButton)
-//        view.addSubview(vishniButton)
-//        view.addSubview(olivkaButton)
-//        view.addSubview(baklazButton)
         view.addSubview(doneButton)
         view.addSubview(hStack)
         
@@ -103,14 +99,14 @@ class SecondViewController: UIViewController {
         // 6 (optional, best practice) Create vertical stackView
         
         NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            label.topAnchor.constraint(equalTo: view.topAnchor, constant: 70),
             label.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15),
             label.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15),
             
             hStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             hStack.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 100),
             
-            doneButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
+            doneButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -70),
             doneButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 100),
             doneButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -100)
             
