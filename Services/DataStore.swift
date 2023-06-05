@@ -34,7 +34,7 @@ final class DataStore {
         "Плацкарт"
     ]
     
-    var sport = [
+    let sport = [
         "Шайба",
         "Скелетон",
         "Эстафетная палочка",
