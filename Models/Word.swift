@@ -7,7 +7,7 @@
 
 var usedWords: [String] = []
 
-private func getWord(_ array: [String]) -> String {
+func getWord(_ array: [String]) -> String {
     
     let words = array.shuffled()
     var index = 0
@@ -21,3 +21,17 @@ private func getWord(_ array: [String]) -> String {
     
     return words[index]
 }
+
+
+let travel = [
+    "Берлин",
+    "Шопинг",
+    "Пляж",
+    "Боинг",
+    "Кемпинг",
+    "Maps.me",
+    "Эверест",
+    "City Sightseeing",
+    "Колесо обозрения",
+    "Плацкарт"
+]

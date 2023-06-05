@@ -100,7 +100,7 @@ final class ChooseTopicViewController: UIViewController {
 
     }
     @objc func buttonTapped() {
-        let vc = StartGameAndPointsViewController()
+        let vc = TimerViewController()
         navigationItem.backButtonTitle = ""
         navigationController?.pushViewController(vc, animated: true)
     }
