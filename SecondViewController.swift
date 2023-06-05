@@ -91,15 +91,8 @@ class SecondViewController: UIViewController {
         
         navigationItem.rightBarButtonItem = rulesButton
         
-        // 1 create UIStackView
-        // 2 set axis horizontal to stackView
-        // 3 add arranged subviews (buttons)
-        // 4 place stackView at centerX
-        // 5 repeat for second stackView
-        // 6 (optional, best practice) Create vertical stackView
-        
         NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: view.topAnchor, constant: 70),
+            label.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
             label.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15),
             label.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15),
             
