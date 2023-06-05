@@ -68,11 +68,6 @@ final class ChooseTopicViewController: UIViewController {
         view.backgroundColor = UIColor(red: 0.4, green: 0.5, blue: 0.3, alpha: 1)
         view.addSubview(label)
         view.addSubview(celebritiesButton)
-        view.addSubview(travelButton)
-        view.addSubview(sportButton)
-        view.addSubview(moviesButton)
-        view.addSubview(mixButton)
-        view.addSubview(ownWordsButton)
         
         buttonStack.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(buttonStack)

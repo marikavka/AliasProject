@@ -12,7 +12,7 @@ final class TimerViewController: UIViewController {
     private let timerLabel: UILabel = {
         let label = UILabel().prepare()
         label.text = "01:00"
-        label.font = .systemFont(ofSize: 80)
+        label.font = .monospacedDigitSystemFont(ofSize: 80, weight: .bold)
         label.textColor = UIColor(red: 0.17, green: 0.08, blue: 0, alpha: 1)
         label.textAlignment = .center
         return label
@@ -20,7 +20,7 @@ final class TimerViewController: UIViewController {
     
     private let wordLabel: UILabel = {
         let label = UILabel().prepare()
-//        label.text = "WORD"
+        //        label.text = "WORD"
         label.font = .systemFont(ofSize: 40)
         label.textColor = UIColor(red: 0.17, green: 0.08, blue: 0, alpha: 1)
         label.textAlignment = .center
@@ -31,33 +31,36 @@ final class TimerViewController: UIViewController {
     private lazy var yesButton: UIButton = {
         let button = UIButton().prepare()
         button.setImage(UIImage(named:"yesColor"), for: .normal)
-        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(buttonTappedYes), for: .touchUpInside)
         return button
     }()
     
     private lazy var noButton: UIButton = {
         let button = UIButton().prepare()
         button.setImage(UIImage(named:"noColor"), for: .normal)
-        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(buttonTappedNo), for: .touchUpInside)
         return button
     }()
-
+    
     let buttonStack = UIStackView()
     let vStack = UIStackView()
     
     var timer: Timer?
     var seconds = 60
     
-    let theWord = getWord(travel)
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        words = DataStore.shared.sport.shuffled()
+        
         
         view.backgroundColor = UIColor(red: 0.4, green: 0.5, blue: 0.3, alpha: 1)
         
         startTimer()
         
-        wordLabel.text = theWord
+//        wordLabel.text = words[currentWordIndex]
         
         vStack.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(vStack)
@@ -78,7 +81,7 @@ final class TimerViewController: UIViewController {
             
             yesButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.33),
             yesButton.widthAnchor.constraint(equalTo: yesButton.heightAnchor, multiplier: 1),
-
+            
             noButton.widthAnchor.constraint(equalTo: yesButton.widthAnchor, multiplier: 1),
             noButton.widthAnchor.constraint(equalTo: noButton.heightAnchor, multiplier: 1),
             
@@ -87,10 +90,8 @@ final class TimerViewController: UIViewController {
             
         ])
         
-        
-
     }
-
+    
     private func startTimer() {
         timer = Timer.scheduledTimer(
             timeInterval: 1.0,
@@ -121,8 +122,47 @@ final class TimerViewController: UIViewController {
         return String(format: "%02d:%02d", minutes, seconds)
     }
     
-    @objc func buttonTapped() {
-        wordLabel.text = getWord(travel)
+    var words: [String] = []
+    var currentWordIndex = 0
+    
+    @objc func buttonTappedYes() {
+        currentWordIndex += 1
+        if currentWordIndex == (words.count) {
+            print("stop")
+        } else {
+            wordLabel.text = words[currentWordIndex]
+        }
     }
-
+    
+    @objc func buttonTappedNo() {
+        currentWordIndex += 1
+        if currentWordIndex == (words.count) {
+            print("stop")
+        } else {
+            wordLabel.text = words[currentWordIndex]
+        }
+        
+    }
 }
+    
+    
+    
+    
+    
+    
+    // 1 shuffle array (take it from DataStore)
+    // 2 create iterator var (currentWordIndex)
+    // 3 take item
+    // 4 go next (increment(+1) currentWordIndex and take next item)
+    
+    // 1 shuffle array
+    // 2 take word from array
+    // 3 remove word from array
+    // Example:
+    //    var words =  [1, 2, 3]
+    //    let elem = words.popFirst()
+    // elem 1
+    // words [2, 3]
+    
+    
+    
