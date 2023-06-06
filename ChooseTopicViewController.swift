@@ -100,7 +100,6 @@ final class ChooseTopicViewController: UIViewController {
             let ownWordsVC = OwnWordsViewController()
             navigationItem.backButtonTitle = ""
             navigationController?.pushViewController(ownWordsVC, animated: true)
-            ownWordsVC.words = actualWords
         } else {
             let timerVC = TimerViewController()
             navigationItem.backButtonTitle = ""

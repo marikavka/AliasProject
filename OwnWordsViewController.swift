@@ -11,7 +11,7 @@ class OwnWordsViewController: UIViewController {
     
     private let label: UILabel = {
         let label = UILabel().prepare()
-        label.text = "Введите свои слова"
+        label.text = "Загадайте свои слова"
         label.font = .systemFont(ofSize: 30)
         label.textColor = UIColor(named: "buttonColor")
         label.textAlignment = .center
@@ -23,13 +23,13 @@ class OwnWordsViewController: UIViewController {
         let textField = UITextField()
         textField.placeholder = "Введите слово"
         textField.borderStyle = .roundedRect
-        textField.backgroundColor = UIColor(named: "backgroundColor")
+        textField.backgroundColor = UIColor(named: "textFieldColor")
         return textField
     }()
     
     private lazy var enterButton: UIButton = {
         let button = UIButton().prepare()
-        formatButton(button, title: "Ввод")
+        formatButton(button, title: "Добавить")
         button.addTarget(self, action: #selector(enterButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -43,7 +43,7 @@ class OwnWordsViewController: UIViewController {
     
     let vStack = UIStackView()
     
-    var words: [String]!
+    var actualWords: [String] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,16 +74,22 @@ class OwnWordsViewController: UIViewController {
         ])
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        view.endEditing(true)
+    }
+    
     @objc func enterButtonTapped(_ sender: UIButton) {
-            let ownWordsVC = OwnWordsViewController()
-            navigationItem.backButtonTitle = ""
-            navigationController?.pushViewController(ownWordsVC, animated: true)
+        guard let inputText = newWordTF.text, !inputText.isEmpty else { return }
+        actualWords.append(inputText)
+        newWordTF.text = ""
     }
     
     @objc func readyButtonTapped(_ sender: UIButton) {
-            let ownWordsVC = OwnWordsViewController()
-            navigationItem.backButtonTitle = ""
-            navigationController?.pushViewController(ownWordsVC, animated: true)
+        let timerVC = TimerViewController()
+        navigationItem.backButtonTitle = ""
+        navigationController?.pushViewController(timerVC, animated: true)
+        timerVC.words = actualWords.shuffled()
     }
 
 }
