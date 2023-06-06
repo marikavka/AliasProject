@@ -13,7 +13,7 @@ final class ChooseTopicViewController: UIViewController {
         let label = UILabel().prepare()
         label.text = "Выбирайте тему"
         label.font = .systemFont(ofSize: 30)
-        label.textColor = UIColor(red: 0.17, green: 0.08, blue: 0, alpha: 1)
+        label.textColor = UIColor(named: "buttonColor")
         label.textAlignment = .center
         label.numberOfLines = 0
         return label
@@ -67,7 +67,7 @@ final class ChooseTopicViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(red: 0.4, green: 0.5, blue: 0.3, alpha: 1)
+        view.backgroundColor = UIColor(named: "backgroundColor")
         view.addSubview(label)
         view.addSubview(celebritiesButton)
         
@@ -86,44 +86,43 @@ final class ChooseTopicViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             label.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
-            label.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15),
-            label.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15),
+            label.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
+            label.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
             
             buttonStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             buttonStack.topAnchor.constraint(equalTo: label.topAnchor, constant: 100),
-            buttonStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 100),
-            buttonStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -100)
+            buttonStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 100)
         ])
 
     }
     @objc func buttonTapped(_ sender: UIButton) {
-        let timerVC = TimerViewController()
-        navigationItem.backButtonTitle = ""
-        navigationController?.pushViewController(timerVC, animated: true)
-        
-        switch sender {
-        case celebritiesButton:
-            actualWords = celebrities
-        case travelButton:
-            actualWords = travel
-        case sportButton:
-            actualWords = sport
-        case moviesButton:
-            actualWords = movies
-        case mixButton:
-            actualWords = mixTheme
-        default:
-            break
+        if sender == ownWordsButton {
+            let ownWordsVC = OwnWordsViewController()
+            navigationItem.backButtonTitle = ""
+            navigationController?.pushViewController(ownWordsVC, animated: true)
+            ownWordsVC.words = actualWords
+        } else {
+            let timerVC = TimerViewController()
+            navigationItem.backButtonTitle = ""
+            navigationController?.pushViewController(timerVC, animated: true)
+            
+            switch sender {
+            case celebritiesButton:
+                actualWords = celebrities
+            case travelButton:
+                actualWords = travel
+            case sportButton:
+                actualWords = sport
+            case moviesButton:
+                actualWords = movies
+            case mixButton:
+                actualWords = mixTheme
+            default:
+                break
+            }
+            timerVC.words = actualWords
         }
-        
-        timerVC.words = actualWords
     }
 }
 
-private func formatButton(_ button: UIButton, title: String) {
-    button.setTitle(title, for: .normal)
-    button.setTitleColor(UIColor(red: 0.4, green: 0.5, blue: 0.3, alpha: 1), for: .normal)
-    button.backgroundColor = UIColor(red: 0.17, green: 0.08, blue: 0, alpha: 1)
-    button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-    button.layer.cornerRadius = 15
-}
+

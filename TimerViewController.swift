@@ -13,7 +13,7 @@ final class TimerViewController: UIViewController {
         let label = UILabel().prepare()
         label.text = "01:00"
         label.font = .monospacedDigitSystemFont(ofSize: 80, weight: .bold)
-        label.textColor = UIColor(red: 0.17, green: 0.08, blue: 0, alpha: 1)
+        label.textColor = UIColor(named: "buttonColor")
         label.textAlignment = .center
         return label
     }()
@@ -21,7 +21,7 @@ final class TimerViewController: UIViewController {
     private let wordLabel: UILabel = {
         let label = UILabel().prepare()
         label.font = .systemFont(ofSize: 40)
-        label.textColor = UIColor(red: 0.17, green: 0.08, blue: 0, alpha: 1)
+        label.textColor = UIColor(named: "buttonColor")
         label.textAlignment = .center
         label.numberOfLines = 0
         return label
@@ -52,7 +52,7 @@ final class TimerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor(red: 0.4, green: 0.5, blue: 0.3, alpha: 1)
+        view.backgroundColor = UIColor(named: "backgroundColor")
         
         startTimer()
         
