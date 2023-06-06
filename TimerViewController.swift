@@ -30,14 +30,14 @@ final class TimerViewController: UIViewController {
     private lazy var yesButton: UIButton = {
         let button = UIButton().prepare()
         button.setImage(UIImage(named:"yesColor"), for: .normal)
-        button.addTarget(self, action: #selector(buttonTappedYes), for: .touchUpInside)
+        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return button
     }()
     
     private lazy var noButton: UIButton = {
         let button = UIButton().prepare()
         button.setImage(UIImage(named:"noColor"), for: .normal)
-        button.addTarget(self, action: #selector(buttonTappedNo), for: .touchUpInside)
+        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -116,29 +116,16 @@ final class TimerViewController: UIViewController {
     
     var currentWordIndex = 0
     
-    @objc func buttonTappedYes() {
+    @objc func buttonTapped() {
         currentWordIndex += 1
         if currentWordIndex == (words.count) {
-            wordLabel.text = "КОНЕЦ РАУНДА, НАЖМИТЕ ЛЮБУЮ КНОПКУ"
+            wordLabel.text = "СЛОВА ЗАКОНЧИЛИСЬ, НАЖМИТЕ ЛЮБУЮ КНОПКУ"
             wordLabel.font = .systemFont(ofSize: 20)
         } else if currentWordIndex < (words.count) {
             wordLabel.text = words[currentWordIndex]
         } else {
             goToTheNextScreen()
         }
-    }
-    
-    @objc func buttonTappedNo() {
-        currentWordIndex += 1
-        if currentWordIndex == (words.count) {
-            wordLabel.text = "КОНЕЦ РАУНДА, НАЖМИТЕ ЛЮБУЮ КНОПКУ"
-            wordLabel.font = .systemFont(ofSize: 20)
-        } else if currentWordIndex < (words.count) {
-            wordLabel.text = words[currentWordIndex]
-        } else {
-            goToTheNextScreen()
-        }
-        
     }
     
     private func goToTheNextScreen() {

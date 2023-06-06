@@ -82,7 +82,9 @@ class OwnWordsViewController: UIViewController {
     @objc func enterButtonTapped(_ sender: UIButton) {
         guard let inputText = newWordTF.text, !inputText.isEmpty else { return }
         actualWords.append(inputText)
+        newWordTF.placeholder = inputText
         newWordTF.text = ""
+        
     }
     
     @objc func readyButtonTapped(_ sender: UIButton) {
