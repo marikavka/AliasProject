@@ -20,7 +20,6 @@ final class TimerViewController: UIViewController {
     
     private let wordLabel: UILabel = {
         let label = UILabel().prepare()
-        //        label.text = "WORD"
         label.font = .systemFont(ofSize: 40)
         label.textColor = UIColor(red: 0.17, green: 0.08, blue: 0, alpha: 1)
         label.textAlignment = .center
@@ -48,8 +47,6 @@ final class TimerViewController: UIViewController {
     var timer: Timer?
     var seconds = 60
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -60,7 +57,7 @@ final class TimerViewController: UIViewController {
         
         startTimer()
         
-//        wordLabel.text = words[currentWordIndex]
+        wordLabel.text = words[currentWordIndex]
         
         vStack.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(vStack)
@@ -107,12 +104,7 @@ final class TimerViewController: UIViewController {
         
         if seconds == 0 {
             timer?.invalidate()
-            let vc = StartGameAndPointsViewController()
-            let navVC = UINavigationController(rootViewController: vc)
-            navVC.navigationBar.tintColor = .black
-            navVC.modalTransitionStyle = .flipHorizontal
-            navVC.modalPresentationStyle = .fullScreen
-            present(navVC, animated: true)
+            goToTheNextScreen()
         }
     }
     
@@ -129,8 +121,12 @@ final class TimerViewController: UIViewController {
         currentWordIndex += 1
         if currentWordIndex == (words.count) {
             print("stop")
-        } else {
+            wordLabel.text = "КОНЕЦ РАУНДА, НАЖМИТЕ ЛЮБУЮ КНОПКУ"
+            wordLabel.font = .systemFont(ofSize: 20)
+        } else if currentWordIndex < (words.count) {
             wordLabel.text = words[currentWordIndex]
+        } else {
+            goToTheNextScreen()
         }
     }
     
@@ -138,10 +134,23 @@ final class TimerViewController: UIViewController {
         currentWordIndex += 1
         if currentWordIndex == (words.count) {
             print("stop")
-        } else {
+            wordLabel.text = "КОНЕЦ РАУНДА, НАЖМИТЕ ЛЮБУЮ КНОПКУ"
+            wordLabel.font = .systemFont(ofSize: 20)
+        } else if currentWordIndex < (words.count) {
             wordLabel.text = words[currentWordIndex]
+        } else {
+            goToTheNextScreen()
         }
         
+    }
+    
+    private func goToTheNextScreen() {
+        let vc = StartGameAndPointsViewController()
+        let navVC = UINavigationController(rootViewController: vc)
+        navVC.navigationBar.tintColor = .black
+        navVC.modalTransitionStyle = .flipHorizontal
+        navVC.modalPresentationStyle = .fullScreen
+        present(navVC, animated: true)
     }
 }
     
