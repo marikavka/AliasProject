@@ -63,6 +63,8 @@ final class ChooseTopicViewController: UIViewController {
     
     let buttonStack = UIStackView()
     
+    var actualWords: [String] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(red: 0.4, green: 0.5, blue: 0.3, alpha: 1)
@@ -94,13 +96,28 @@ final class ChooseTopicViewController: UIViewController {
         ])
 
     }
-    @objc func buttonTapped() {
-        let vc = TimerViewController()
+    @objc func buttonTapped(_ sender: UIButton) {
+        let timerVC = TimerViewController()
         navigationItem.backButtonTitle = ""
-        navigationController?.pushViewController(vc, animated: true)
-    }
+        navigationController?.pushViewController(timerVC, animated: true)
         
-
+        switch sender {
+        case celebritiesButton:
+            actualWords = celebrities
+        case travelButton:
+            actualWords = travel
+        case sportButton:
+            actualWords = sport
+        case moviesButton:
+            actualWords = movies
+        case mixButton:
+            actualWords = mixTheme
+        default:
+            break
+        }
+        
+        timerVC.words = actualWords
+    }
 }
 
 private func formatButton(_ button: UIButton, title: String) {

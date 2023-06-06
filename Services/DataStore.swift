@@ -60,9 +60,6 @@ final class DataStore {
         "17 мгновений весны"
     ]
     
-    let commonThemewords: [String]
-    private init() {
-        self.commonThemewords = celebrities + travel + sport + movies
-    }
+    private init() {}
     
 }

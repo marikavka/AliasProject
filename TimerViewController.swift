@@ -47,11 +47,10 @@ final class TimerViewController: UIViewController {
     var timer: Timer?
     var seconds = 60
     
+    var words: [String]!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        words = DataStore.shared.sport.shuffled()
-        
         
         view.backgroundColor = UIColor(red: 0.4, green: 0.5, blue: 0.3, alpha: 1)
         
@@ -114,13 +113,12 @@ final class TimerViewController: UIViewController {
         return String(format: "%02d:%02d", minutes, seconds)
     }
     
-    var words: [String] = []
+    
     var currentWordIndex = 0
     
     @objc func buttonTappedYes() {
         currentWordIndex += 1
         if currentWordIndex == (words.count) {
-            print("stop")
             wordLabel.text = "КОНЕЦ РАУНДА, НАЖМИТЕ ЛЮБУЮ КНОПКУ"
             wordLabel.font = .systemFont(ofSize: 20)
         } else if currentWordIndex < (words.count) {
@@ -133,7 +131,6 @@ final class TimerViewController: UIViewController {
     @objc func buttonTappedNo() {
         currentWordIndex += 1
         if currentWordIndex == (words.count) {
-            print("stop")
             wordLabel.text = "КОНЕЦ РАУНДА, НАЖМИТЕ ЛЮБУЮ КНОПКУ"
             wordLabel.font = .systemFont(ofSize: 20)
         } else if currentWordIndex < (words.count) {
