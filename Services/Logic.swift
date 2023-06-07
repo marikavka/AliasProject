@@ -1,14 +1,14 @@
 //
-//  DataStore.swift
+//  Logic.swift
 //  AliasProject
 //
-//  Created by Белинский Владислав on 03.06.2023.
+//  Created by Владислав Белинский on 06.06.2023.
 //
 
-final class DataStore {
-    static let shared = DataStore()
-    
-    let celebrities = [
+import UIKit
+
+enum Words {
+    static let celebrities = [
         "Дмитрий Маликов",
         "Эми Уайнхаус",
         "Барак Обама",
@@ -21,7 +21,7 @@ final class DataStore {
         "Гаврило Принцип"
     ]
     
-    let travel = [
+    static let travel = [
         "Берлин",
         "Шопинг",
         "Пляж",
@@ -34,7 +34,7 @@ final class DataStore {
         "Плацкарт"
     ]
     
-    let sport = [
+    static let sport = [
         "Шайба",
         "Скелетон",
         "Эстафетная палочка",
@@ -47,7 +47,7 @@ final class DataStore {
         "Двойной тулуп"
     ]
     
-    let movies = [
+    static let movies = [
         "Аватар",
         "Евротур",
         "Левиафан",
@@ -59,10 +59,19 @@ final class DataStore {
         "Бойцовский клуб",
         "17 мгновений весны"
     ]
-    
-    let commonThemewords: [String]
-    private init() {
-        self.commonThemewords = celebrities + travel + sport + movies
-    }
-    
+}
+
+let celebrities = Words.celebrities.shuffled()
+let travel = Words.travel.shuffled()
+let sport = Words.sport.shuffled()
+let movies = Words.movies.shuffled()
+let commonThemeWords = Words.celebrities + Words.movies + Words.sport + Words.travel
+let mixTheme = commonThemeWords.shuffled()
+
+func formatButton(_ button: UIButton, title: String) {
+    button.setTitle(title, for: .normal)
+    button.setTitleColor(UIColor(named: "backgroundColor"), for: .normal)
+    button.backgroundColor = UIColor(named: "buttonColor")
+    button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+    button.layer.cornerRadius = 15
 }

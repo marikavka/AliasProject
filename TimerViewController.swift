@@ -13,16 +13,15 @@ final class TimerViewController: UIViewController {
         let label = UILabel().prepare()
         label.text = "01:00"
         label.font = .monospacedDigitSystemFont(ofSize: 80, weight: .bold)
-        label.textColor = UIColor(red: 0.17, green: 0.08, blue: 0, alpha: 1)
+        label.textColor = UIColor(named: "buttonColor")
         label.textAlignment = .center
         return label
     }()
     
     private let wordLabel: UILabel = {
         let label = UILabel().prepare()
-        //        label.text = "WORD"
         label.font = .systemFont(ofSize: 40)
-        label.textColor = UIColor(red: 0.17, green: 0.08, blue: 0, alpha: 1)
+        label.textColor = UIColor(named: "buttonColor")
         label.textAlignment = .center
         label.numberOfLines = 0
         return label
@@ -31,14 +30,14 @@ final class TimerViewController: UIViewController {
     private lazy var yesButton: UIButton = {
         let button = UIButton().prepare()
         button.setImage(UIImage(named:"yesColor"), for: .normal)
-        button.addTarget(self, action: #selector(buttonTappedYes), for: .touchUpInside)
+        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return button
     }()
     
     private lazy var noButton: UIButton = {
         let button = UIButton().prepare()
         button.setImage(UIImage(named:"noColor"), for: .normal)
-        button.addTarget(self, action: #selector(buttonTappedNo), for: .touchUpInside)
+        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -48,19 +47,16 @@ final class TimerViewController: UIViewController {
     var timer: Timer?
     var seconds = 60
     
-    
+    var words: [String]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        words = DataStore.shared.sport.shuffled()
-        
-        
-        view.backgroundColor = UIColor(red: 0.4, green: 0.5, blue: 0.3, alpha: 1)
+        view.backgroundColor = UIColor(named: "backgroundColor")
         
         startTimer()
         
-//        wordLabel.text = words[currentWordIndex]
+        wordLabel.text = words[currentWordIndex]
         
         vStack.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(vStack)
@@ -107,12 +103,7 @@ final class TimerViewController: UIViewController {
         
         if seconds == 0 {
             timer?.invalidate()
-            let vc = StartGameAndPointsViewController()
-            let navVC = UINavigationController(rootViewController: vc)
-            navVC.navigationBar.tintColor = .black
-            navVC.modalTransitionStyle = .flipHorizontal
-            navVC.modalPresentationStyle = .fullScreen
-            present(navVC, animated: true)
+            goToTheNextScreen()
         }
     }
     
@@ -122,26 +113,28 @@ final class TimerViewController: UIViewController {
         return String(format: "%02d:%02d", minutes, seconds)
     }
     
-    var words: [String] = []
+    
     var currentWordIndex = 0
     
-    @objc func buttonTappedYes() {
+    @objc func buttonTapped() {
         currentWordIndex += 1
         if currentWordIndex == (words.count) {
-            print("stop")
-        } else {
+            wordLabel.text = "СЛОВА ЗАКОНЧИЛИСЬ, НАЖМИТЕ ЛЮБУЮ КНОПКУ"
+            wordLabel.font = .systemFont(ofSize: 20)
+        } else if currentWordIndex < (words.count) {
             wordLabel.text = words[currentWordIndex]
+        } else {
+            goToTheNextScreen()
         }
     }
     
-    @objc func buttonTappedNo() {
-        currentWordIndex += 1
-        if currentWordIndex == (words.count) {
-            print("stop")
-        } else {
-            wordLabel.text = words[currentWordIndex]
-        }
-        
+    private func goToTheNextScreen() {
+        let vc = StartGameAndPointsViewController()
+        let navVC = UINavigationController(rootViewController: vc)
+        navVC.navigationBar.tintColor = .black
+        navVC.modalTransitionStyle = .flipHorizontal
+        navVC.modalPresentationStyle = .fullScreen
+        present(navVC, animated: true)
     }
 }
     
