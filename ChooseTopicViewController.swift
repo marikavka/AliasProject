@@ -21,7 +21,7 @@ final class ChooseTopicViewController: UIViewController {
     
     private lazy var celebritiesButton: UIButton = {
         let button = UIButton().prepare()
-        formatButton(button, title: "Знаменитости")
+        formatButton(button, title: "\(getRusTopicName(Words.celebrities))")
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return button
     }()
@@ -63,7 +63,7 @@ final class ChooseTopicViewController: UIViewController {
     
     let buttonStack = UIStackView()
     
-    var choosenTeamsIndexAndScore: [Int: Int]!
+    var choosenTeams: [Team]!
     
     var actualWords: [String] = []
     
@@ -109,20 +109,21 @@ final class ChooseTopicViewController: UIViewController {
             
             switch sender {
             case celebritiesButton:
-                actualWords = Words.celebrities.shuffled()
+                actualWords = Words.celebrities
             case travelButton:
-                actualWords = Words.travel.shuffled()
+                actualWords = Words.travel
             case sportButton:
-                actualWords = Words.sport.shuffled()
+                actualWords = Words.sport
             case moviesButton:
-                actualWords = Words.movies.shuffled()
+                actualWords = Words.movies
             case mixButton:
                 actualWords = mixTheme
             default:
                 break
             }
             startgameVC.words = actualWords
-            startgameVC.choosenTeamsIndexAndScore = choosenTeamsIndexAndScore
+            startgameVC.choosenTeams = choosenTeams
+            startgameVC.rusTopicName = getRusTopicName(actualWords)
         }
     }
 }

@@ -1,13 +1,13 @@
 //
-//  StartGameAndPointsViewController.swift
+//  RoundResultsViewController.swift
 //  AliasProject
 //
-//  Created by Мария Купчинская on 05.06.2023.
+//  Created by Марина Иванова on 07.06.2023.
 //
 
 import UIKit
 
-class StartGameAndPointsViewController: UIViewController {
+class RoundResultsViewController: UIViewController {
     
     private let roundTopicLabel: UILabel = {
         let label = UILabel().prepare()
@@ -18,7 +18,7 @@ class StartGameAndPointsViewController: UIViewController {
         return label
     }()
     
-    private let warningLabel: UILabel = {
+    private let scoreLabel: UILabel = {
         let label = UILabel().prepare()
         label.font = .systemFont(ofSize: 30)
         label.textColor = UIColor(red: 0.17, green: 0.08, blue: 0, alpha: 1)
@@ -49,21 +49,19 @@ class StartGameAndPointsViewController: UIViewController {
         return button
     }()
     
-    var choosenTeams: [Team]!
-    
-    var words: [String]!
-    
-    var rusTopicName: String!
+    var score: Int!
     
     let vStack = UIStackView()
     
-    var roundCounter = 1
+    var roundCounter: Int!
     
-    var teamIndex = 0
+    var choosenTeams: [Team]!
+    
+    var teamIndex: Int!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(red: 0.4, green: 0.5, blue: 0.3, alpha: 1)
+        view.backgroundColor = UIColor(named: "backgroundColor")
         
         if let logo = UIImage(named: "\(choosenTeams[teamIndex].colorImageName)") {
             teamLogo.image = logo
@@ -74,7 +72,7 @@ class StartGameAndPointsViewController: UIViewController {
         
         vStack.addArrangedSubview(roundTopicLabel)
         vStack.addArrangedSubview(teamLogo)
-        vStack.addArrangedSubview(warningLabel)
+        vStack.addArrangedSubview(scoreLabel)
         vStack.addArrangedSubview(numberOfPoints)
         vStack.addArrangedSubview(doneButton)
         
@@ -83,13 +81,12 @@ class StartGameAndPointsViewController: UIViewController {
         vStack.alignment = .center
         
         roundTopicLabel.text = """
-        Раунд № \(roundCounter)
-        Тема: \(rusTopicName!)
+        Раунд № \(roundCounter!)
+        Результаты после игры команды \(choosenTeams[teamIndex].name)
+        
         """
         
-        warningLabel.text = """
-\(choosenTeams[teamIndex].name), у вас будет \(time) секунд, чтобы угадать максимальное количество слов, готовы?
-"""
+        scoreLabel.text = getLabelText() + "следующий ход команды \(choosenTeams[getTeamIndex()].name), готовы?"
         
         NSLayoutConstraint.activate([
             
@@ -107,11 +104,30 @@ class StartGameAndPointsViewController: UIViewController {
         navVC.modalTransitionStyle = .flipHorizontal
         navVC.modalPresentationStyle = .fullScreen
         present(navVC, animated: true)
-        timerVC.words = words
-        timerVC.choosenTeams = choosenTeams
-        timerVC.teamIndex = teamIndex
+        //timerVC.words = words
+        //timerVC.choosenTeams = choosenTeams
+        timerVC.teamIndex = getTeamIndex()
+        if teamIndex == 0 {
+            roundCounter += 1
+        }
         timerVC.roundCounter = roundCounter
     }
-    
 
+    private func getLabelText() -> String {
+        var labelText = ""
+        for team in choosenTeams {
+            labelText += "\(team.name) : \(team.points)\n"
+        }
+        return labelText
+    }
+    
+    private func getTeamIndex() -> Int {
+        if teamIndex < choosenTeams.count {
+            teamIndex += 1
+        } else {
+            teamIndex = 0
+        }
+        return teamIndex
+    }
+    
 }

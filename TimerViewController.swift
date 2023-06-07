@@ -11,7 +11,7 @@ final class TimerViewController: UIViewController {
     
     private let timerLabel: UILabel = {
         let label = UILabel().prepare()
-        label.text = "00:\(seconds)"
+        label.text = "00:\(time)"
         label.font = .monospacedDigitSystemFont(ofSize: 80, weight: .bold)
         label.textColor = UIColor(named: "buttonColor")
         label.textAlignment = .center
@@ -41,14 +41,24 @@ final class TimerViewController: UIViewController {
         return button
     }()
     
+    var choosenTeams: [Team]!
+    
     let buttonStack = UIStackView()
+    
     let vStack = UIStackView()
     
     var timer: Timer?
     
+    var seconds = time
+    
     var currentWordIndex = 0
     
     var words: [String]!
+    
+    var teamIndex: Int!
+    
+    var roundCounter: Int!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,7 +67,8 @@ final class TimerViewController: UIViewController {
         
         startTimer()
         
-        wordLabel.text = words[currentWordIndex]
+        let mixedWords = words.shuffled()
+        wordLabel.text = mixedWords[currentWordIndex]
         
         vStack.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(vStack)
@@ -114,28 +125,37 @@ final class TimerViewController: UIViewController {
         return String(format: "%02d:%02d", minutes, seconds)
     }
     
-    
-    //var currentWordIndex = 0
-    
-    @objc func buttonTapped() {
+    @objc func buttonTapped(_ sender: UIButton) {
         currentWordIndex += 1
         if currentWordIndex == (words.count) {
             wordLabel.text = "СЛОВА ЗАКОНЧИЛИСЬ, НАЖМИТЕ ЛЮБУЮ КНОПКУ"
             wordLabel.font = .systemFont(ofSize: 20)
         } else if currentWordIndex < (words.count) {
             wordLabel.text = words[currentWordIndex]
+            if sender == yesButton {
+                choosenTeams[teamIndex!].points += 1
+                print("\(choosenTeams[teamIndex!].name) : \(choosenTeams[teamIndex!].points)")
+            } else {
+                choosenTeams[teamIndex!].points -= 1
+                print("\(choosenTeams[teamIndex!].name) : \(choosenTeams[teamIndex!].points)")
+            }
         } else {
             goToTheNextScreen()
         }
     }
     
     private func goToTheNextScreen() {
-        let vc = ThirdViewController()
+        let vc = RoundResultsViewController()
         let navVC = UINavigationController(rootViewController: vc)
         navVC.navigationBar.tintColor = .black
         navVC.modalTransitionStyle = .flipHorizontal
         navVC.modalPresentationStyle = .fullScreen
         present(navVC, animated: true)
+        let score = choosenTeams[teamIndex!].points
+        vc.score = score
+        vc.roundCounter = roundCounter
+        vc.choosenTeams = choosenTeams
+        vc.teamIndex = teamIndex
     }
 }
     

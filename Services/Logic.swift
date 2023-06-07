@@ -72,4 +72,21 @@ func formatButton(_ button: UIButton, title: String) {
     button.layer.cornerRadius = 15
 }
 
-var seconds = 30
+let time = 30
+
+func getRusTopicName(_ array: [String]) -> String {
+    switch array {
+    case Words.celebrities:
+        return "Знаменитости"
+    case Words.travel:
+        return "Путешествия"
+    case Words.sport:
+        return "Спорт"
+    case Words.movies:
+        return "Фильмы"
+    case mixTheme:
+        return "Без темы"
+    default:
+        return "Свои слова"
+    }
+}

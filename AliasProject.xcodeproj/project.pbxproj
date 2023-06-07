@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		255321492A31190A009973C0 /* RoundResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255321482A31190A009973C0 /* RoundResultsViewController.swift */; };
 		25603B1B2A2CB79D00DF3096 /* ChooseTopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25603B1A2A2CB79D00DF3096 /* ChooseTopicViewController.swift */; };
 		25603B272A2E266500DF3096 /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25603B262A2E266500DF3096 /* TimerViewController.swift */; };
 		25603B292A2F1F1E00DF3096 /* Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25603B282A2F1F1E00DF3096 /* Logic.swift */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		255321482A31190A009973C0 /* RoundResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundResultsViewController.swift; sourceTree = "<group>"; };
 		25603B1A2A2CB79D00DF3096 /* ChooseTopicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseTopicViewController.swift; sourceTree = "<group>"; };
 		25603B262A2E266500DF3096 /* TimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
 		25603B282A2F1F1E00DF3096 /* Logic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logic.swift; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 				25603B2A2A2F3EEB00DF3096 /* OwnWordsViewController.swift */,
 				F933BCAF2A2E09EF00177A8F /* StartGameAndPointsViewController.swift */,
 				25603B262A2E266500DF3096 /* TimerViewController.swift */,
+				255321482A31190A009973C0 /* RoundResultsViewController.swift */,
 				F908C4DA2A2B9B0100EB2050 /* ThirdViewController.swift */,
 				25603B1E2A2CB9E100DF3096 /* Services */,
 				F9486FD12A2B5C3900523EA1 /* AliasProject */,
@@ -174,6 +177,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F927E8F72A3076A300897332 /* Team.swift in Sources */,
+				255321492A31190A009973C0 /* RoundResultsViewController.swift in Sources */,
 				F9486FE72A2B709600523EA1 /* SecondViewController.swift in Sources */,
 				F9486FD72A2B5C3900523EA1 /* ViewController.swift in Sources */,
 				25603B292A2F1F1E00DF3096 /* Logic.swift in Sources */,

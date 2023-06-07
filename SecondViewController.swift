@@ -7,11 +7,6 @@
 
 import UIKit
 
-private struct TeamContainer {
-    let team: Team
-    var isSelected = false
-}
-
 class SecondViewController: UIViewController {
     
     private lazy var rulesButton = UIBarButtonItem(title: "Как играть?", style: .plain, target: self, action: #selector(rulesButtonTapped))
@@ -28,28 +23,28 @@ class SecondViewController: UIViewController {
     
     private lazy var gribokButton: UIButton = {
         let button = UIButton().prepare()
-        button.setImage(UIImage(named:team[0].imageName), for: .normal)
+        button.setImage(UIImage(named:teams[0].imageName), for: .normal)
         button.addTarget(self, action: #selector(chooseTeam), for: .touchUpInside)
         return button
     }()
     
     private lazy var vishniButton: UIButton = {
         let button = UIButton().prepare()
-        button.setImage(UIImage(named:team[1].imageName), for: .normal)
+        button.setImage(UIImage(named:teams[1].imageName), for: .normal)
         button.addTarget(self, action: #selector(chooseTeamTwo), for: .touchUpInside)
         return button
     }()
     
     private lazy var olivkaButton: UIButton = {
         let button = UIButton().prepare()
-        button.setImage(UIImage(named:team[2].imageName), for: .normal)
+        button.setImage(UIImage(named:teams[2].imageName), for: .normal)
         button.addTarget(self, action: #selector(chooseTeamThree), for: .touchUpInside)
         return button
     }()
     
     private lazy var baklazButton: UIButton = {
         let button = UIButton().prepare()
-        button.setImage(UIImage(named:team[3].imageName), for: .normal)
+        button.setImage(UIImage(named:teams[3].imageName), for: .normal)
         button.addTarget(self, action: #selector(chooseTeamFour), for: .touchUpInside)
         return button
     }()
@@ -69,9 +64,9 @@ class SecondViewController: UIViewController {
     let vStack2 = UIStackView()
     let hStack = UIStackView().prepare()
     
-    var choosenTeamsIndexAndScore: [Int: Int] = [:]
+    var choosenTeams = [Team]()
     
-    private let team = Team.getTeam()
+    private let teams = Team.getTeam()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -120,34 +115,38 @@ class SecondViewController: UIViewController {
     
     @objc func chooseTeam(_ sender: UIButton) {
         let index = 0
-        buttonActions(sender, index)
+        let name = teams[index].name
+        buttonActions(sender, index, name)
     }
     
     @objc func chooseTeamTwo(_ sender: UIButton) {
         let index = 1
-        buttonActions(sender, index)
+        let name = teams[index].name
+        buttonActions(sender, index, name)
     }
     
     @objc func chooseTeamThree(_ sender: UIButton) {
         let index = 2
-        buttonActions(sender, index)
+        let name = teams[index].name
+        buttonActions(sender, index, name)
     }
     
     @objc func chooseTeamFour(_ sender: UIButton) {
         let index = 3
-        buttonActions(sender, index)
+        let name = teams[index].name
+        buttonActions(sender, index, name)
     }
     
     
     @objc func doneButtonTapped() {
-        if choosenTeamsIndexAndScore.count >= 2 {
+        if choosenTeams.count >= 2 {
             let vc = ChooseTopicViewController()
-            vc.choosenTeamsIndexAndScore = choosenTeamsIndexAndScore
+            vc.choosenTeams = choosenTeams
             navigationItem.backButtonTitle = ""
             navigationController?.pushViewController(vc, animated: true)
-            print("buttonTapped")
-            for (teamIndex, score) in choosenTeamsIndexAndScore {
-                print("\(teamIndex) : \(score)")
+            print("Выбранные команды : счет")
+            for choosenTeam in choosenTeams {
+                print ("\(choosenTeam.name) : \(choosenTeam.points)")
             }
         }
         else {
@@ -155,21 +154,20 @@ class SecondViewController: UIViewController {
         }
     }
     
-    func buttonActions(_ sender: UIButton, _ index: Int) {
-        if sender.currentImage == UIImage(named: team[index].colorImageName) {
-            sender.setImage(UIImage(named:team[index].imageName), for: .normal)
-            for (key, _) in choosenTeamsIndexAndScore {
-                if key == index {
-                    choosenTeamsIndexAndScore.removeValue(forKey: key)
-                }
+    func buttonActions(_ sender: UIButton, _ index: Int, _ teamName: String) {
+        if sender.currentImage == UIImage(named: teams[index].colorImageName) {
+            sender.setImage(UIImage(named:teams[index].imageName), for: .normal)
+            if let i = choosenTeams.firstIndex(where: { $0.name == teamName}) {
+                choosenTeams.remove(at: i)
             }
         } else {
-                    sender.setImage( UIImage(named: team[index].colorImageName), for: .normal)
-                    choosenTeamsIndexAndScore[index] = 0
-                }
-            }
+            sender.setImage( UIImage(named: teams[index].colorImageName), for: .normal)
             
+            choosenTeams.append(teams[index])
         }
+    }
+    
+}
     
 
 
