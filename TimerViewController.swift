@@ -11,7 +11,7 @@ final class TimerViewController: UIViewController {
     
     private let timerLabel: UILabel = {
         let label = UILabel().prepare()
-        label.text = "01:00"
+        label.text = "00:\(seconds)"
         label.font = .monospacedDigitSystemFont(ofSize: 80, weight: .bold)
         label.textColor = UIColor(named: "buttonColor")
         label.textAlignment = .center
@@ -45,7 +45,8 @@ final class TimerViewController: UIViewController {
     let vStack = UIStackView()
     
     var timer: Timer?
-    var seconds = 60
+    
+    var currentWordIndex = 0
     
     var words: [String]!
     
@@ -114,7 +115,7 @@ final class TimerViewController: UIViewController {
     }
     
     
-    var currentWordIndex = 0
+    //var currentWordIndex = 0
     
     @objc func buttonTapped() {
         currentWordIndex += 1
@@ -129,7 +130,7 @@ final class TimerViewController: UIViewController {
     }
     
     private func goToTheNextScreen() {
-        let vc = StartGameAndPointsViewController()
+        let vc = ThirdViewController()
         let navVC = UINavigationController(rootViewController: vc)
         navVC.navigationBar.tintColor = .black
         navVC.modalTransitionStyle = .flipHorizontal

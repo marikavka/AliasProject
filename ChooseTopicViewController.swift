@@ -63,6 +63,8 @@ final class ChooseTopicViewController: UIViewController {
     
     let buttonStack = UIStackView()
     
+    var choosenTeamsIndexAndScore: [Int: Int]!
+    
     var actualWords: [String] = []
     
     override func viewDidLoad() {
@@ -101,25 +103,26 @@ final class ChooseTopicViewController: UIViewController {
             navigationItem.backButtonTitle = ""
             navigationController?.pushViewController(ownWordsVC, animated: true)
         } else {
-            let timerVC = TimerViewController()
+            let startgameVC = StartGameAndPointsViewController()
             navigationItem.backButtonTitle = ""
-            navigationController?.pushViewController(timerVC, animated: true)
+            navigationController?.pushViewController(startgameVC, animated: true)
             
             switch sender {
             case celebritiesButton:
-                actualWords = celebrities
+                actualWords = Words.celebrities.shuffled()
             case travelButton:
-                actualWords = travel
+                actualWords = Words.travel.shuffled()
             case sportButton:
-                actualWords = sport
+                actualWords = Words.sport.shuffled()
             case moviesButton:
-                actualWords = movies
+                actualWords = Words.movies.shuffled()
             case mixButton:
                 actualWords = mixTheme
             default:
                 break
             }
-            timerVC.words = actualWords
+            startgameVC.words = actualWords
+            startgameVC.choosenTeamsIndexAndScore = choosenTeamsIndexAndScore
         }
     }
 }
