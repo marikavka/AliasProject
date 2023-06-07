@@ -7,13 +7,65 @@
 
 import UIKit
 
+enum Words {
+    static let celebrities = [
+        "Дмитрий Маликов",
+        "Эми Уайнхаус",
+        "Барак Обама",
+        "Гомер",
+        "Виктор Цой",
+        "Бейонсе",
+        "Петр III",
+        "Криштиану Роналду",
+        "Илон Маск",
+        "Гаврило Принцип"
+    ]
+    
+    static let travel = [
+        "Берлин",
+        "Шопинг",
+        "Пляж",
+        "Боинг",
+        "Кемпинг",
+        "Maps.me",
+        "Эверест",
+        "City Sightseeing",
+        "Колесо обозрения",
+        "Плацкарт"
+    ]
+    
+    static let sport = [
+        "Шайба",
+        "Скелетон",
+        "Эстафетная палочка",
+        "Прыжки в высоту",
+        "Финиш",
+        "Нокаут",
+        "Допинг",
+        "Болельщики",
+        "Олимпийский огонь",
+        "Двойной тулуп"
+    ]
+    
+    static let movies = [
+        "Аватар",
+        "Евротур",
+        "Левиафан",
+        "Омерзительная восьмерка",
+        "Форрест Гамп",
+        "Бриллиантовая рука",
+        "Интерстеллар",
+        "Игра престолов",
+        "Бойцовский клуб",
+        "17 мгновений весны"
+    ]
+}
 
-
-let celebrities = DataStore.shared.celebrities.shuffled()
-let travel = DataStore.shared.travel.shuffled()
-let sport = DataStore.shared.sport.shuffled()
-let movies = DataStore.shared.movies.shuffled()
-let commonThemeWords = DataStore.shared.celebrities + DataStore.shared.movies + DataStore.shared.sport + DataStore.shared.travel
+let celebrities = Words.celebrities.shuffled()
+let travel = Words.travel.shuffled()
+let sport = Words.sport.shuffled()
+let movies = Words.movies.shuffled()
+let commonThemeWords = Words.celebrities + Words.movies + Words.sport + Words.travel
 let mixTheme = commonThemeWords.shuffled()
 
 func formatButton(_ button: UIButton, title: String) {
