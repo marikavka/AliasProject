@@ -21,47 +21,49 @@ final class ChooseTopicViewController: UIViewController {
     
     private lazy var celebritiesButton: UIButton = {
         let button = UIButton().prepare()
-        formatButton(button, title: "Знаменитости")
+        formatButton(button, title: "\(Category.celebrities.rawValue)")
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return button
     }()
     
     private lazy var travelButton: UIButton = {
         let button = UIButton().prepare()
-        formatButton(button, title: "Путешествия")
+        formatButton(button, title: "\(Category.travel.rawValue)")
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return button
     }()
     
     private lazy var sportButton: UIButton = {
         let button = UIButton().prepare()
-        formatButton(button, title: "Спорт")
+        formatButton(button, title: "\(Category.sport.rawValue)")
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return button
     }()
     
     private lazy var moviesButton: UIButton = {
         let button = UIButton().prepare()
-        formatButton(button, title: "Фильмы")
+        formatButton(button, title: "\(Category.movies.rawValue)")
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return button
     }()
     
     private lazy var mixButton: UIButton = {
         let button = UIButton().prepare()
-        formatButton(button, title: "Без темы")
+        formatButton(button, title: "\(Category.mixTheme.rawValue)")
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return button
     }()
     
     private lazy var ownWordsButton: UIButton = {
         let button = UIButton().prepare()
-        formatButton(button, title: "Свои слова")
+        formatButton(button, title: "\(Category.ownTheme.rawValue)")
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return button
     }()
     
     let buttonStack = UIStackView()
+    
+    var choosenTeams: [Team]!
     
     var actualWords: [String] = []
     
@@ -96,30 +98,34 @@ final class ChooseTopicViewController: UIViewController {
 
     }
     @objc func buttonTapped(_ sender: UIButton) {
+        var actualTopicName = sender.titleLabel?.text
         if sender == ownWordsButton {
             let ownWordsVC = OwnWordsViewController()
             navigationItem.backButtonTitle = ""
             navigationController?.pushViewController(ownWordsVC, animated: true)
         } else {
-            let timerVC = TimerViewController()
+            let startgameVC = StartGameAndPointsViewController()
             navigationItem.backButtonTitle = ""
-            navigationController?.pushViewController(timerVC, animated: true)
+            navigationController?.pushViewController(startgameVC, animated: true)
             
             switch sender {
             case celebritiesButton:
-                actualWords = celebrities
+                actualWords = Words.celebrities
             case travelButton:
-                actualWords = travel
+                actualWords = Words.travel
             case sportButton:
-                actualWords = sport
+                actualWords = Words.sport
             case moviesButton:
-                actualWords = movies
+                actualWords = Words.movies
             case mixButton:
                 actualWords = mixTheme
             default:
                 break
             }
-            timerVC.words = actualWords
+            print("Выбрана тема: \(actualTopicName!)")
+            startgameVC.words = actualWords
+            startgameVC.choosenTeams = choosenTeams
+            startgameVC.rusTopicName = actualTopicName
         }
     }
 }

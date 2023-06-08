@@ -61,10 +61,6 @@ enum Words {
     ]
 }
 
-let celebrities = Words.celebrities.shuffled()
-let travel = Words.travel.shuffled()
-let sport = Words.sport.shuffled()
-let movies = Words.movies.shuffled()
 let commonThemeWords = Words.celebrities + Words.movies + Words.sport + Words.travel
 let mixTheme = commonThemeWords.shuffled()
 
@@ -75,3 +71,15 @@ func formatButton(_ button: UIButton, title: String) {
     button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
     button.layer.cornerRadius = 15
 }
+
+let time = 30
+
+enum Category: String {
+case celebrities = "Знаменитости"
+case travel = "Путешествия"
+case sport = "Спорт"
+case movies = "Фильмы"
+case mixTheme = "Без темы"
+case ownTheme = "Свои слова"
+}
+

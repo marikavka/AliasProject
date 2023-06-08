@@ -7,11 +7,6 @@
 
 import UIKit
 
-private struct TeamContainer {
-    let team: Team
-    var isSelected = false
-}
-
 class SecondViewController: UIViewController {
     
     private lazy var rulesButton = UIBarButtonItem(title: "Как играть?", style: .plain, target: self, action: #selector(rulesButtonTapped))
@@ -28,28 +23,28 @@ class SecondViewController: UIViewController {
     
     private lazy var gribokButton: UIButton = {
         let button = UIButton().prepare()
-        button.setImage(UIImage(named:"gribok"), for: .normal)
+        button.setImage(UIImage(named:teams[0].imageName), for: .normal)
         button.addTarget(self, action: #selector(chooseTeam), for: .touchUpInside)
         return button
     }()
     
     private lazy var vishniButton: UIButton = {
         let button = UIButton().prepare()
-        button.setImage(UIImage(named:"vishni"), for: .normal)
+        button.setImage(UIImage(named:teams[1].imageName), for: .normal)
         button.addTarget(self, action: #selector(chooseTeamTwo), for: .touchUpInside)
         return button
     }()
     
     private lazy var olivkaButton: UIButton = {
         let button = UIButton().prepare()
-        button.setImage(UIImage(named:"olivka"), for: .normal)
+        button.setImage(UIImage(named:teams[2].imageName), for: .normal)
         button.addTarget(self, action: #selector(chooseTeamThree), for: .touchUpInside)
         return button
     }()
     
     private lazy var baklazButton: UIButton = {
         let button = UIButton().prepare()
-        button.setImage(UIImage(named:"baklaz"), for: .normal)
+        button.setImage(UIImage(named:teams[3].imageName), for: .normal)
         button.addTarget(self, action: #selector(chooseTeamFour), for: .touchUpInside)
         return button
     }()
@@ -69,12 +64,9 @@ class SecondViewController: UIViewController {
     let vStack2 = UIStackView()
     let hStack = UIStackView().prepare()
     
-    private var teams = [
-        TeamContainer(team: Team(imageName: "colorgribok", name: "Грибы")),
-        TeamContainer(team: Team(imageName: "colorOlivka", name: "Оливки")),
-        TeamContainer(team: Team(imageName: "colorvishni", name: "Вишни")),
-        TeamContainer(team: Team(imageName: "colorBaklaz", name: "Баклажаны"))
-    ]
+    var choosenTeams = [Team]()
+    
+    private let teams = Team.getTeam()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,11 +77,11 @@ class SecondViewController: UIViewController {
         view.addSubview(hStack)
         
         vStack1.addArrangedSubview(gribokButton)
-        vStack1.addArrangedSubview(vishniButton)
+        vStack1.addArrangedSubview(olivkaButton)
         vStack1.axis = .vertical
         vStack1.spacing = 30
         
-        vStack2.addArrangedSubview(olivkaButton)
+        vStack2.addArrangedSubview(vishniButton)
         vStack2.addArrangedSubview(baklazButton)
         vStack2.axis = .vertical
         vStack2.spacing = 30
@@ -112,9 +104,7 @@ class SecondViewController: UIViewController {
             doneButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -70),
             doneButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 100),
             doneButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -100)
-            
         ])
-        
     }
     
     @objc func rulesButtonTapped() {
@@ -124,68 +114,60 @@ class SecondViewController: UIViewController {
     }
     
     @objc func chooseTeam(_ sender: UIButton) {
-        if sender.currentImage == UIImage(named: "colorgribok") {
-            sender.setImage(UIImage(named:"gribok"), for: .normal)
-            teams[0].isSelected = false
-        }
-        else {
-            sender.setImage(UIImage(named:"colorgribok"), for: .normal)
-            teams[0].isSelected = true
-        }
+        let index = 0
+        let name = teams[index].name
+        buttonActions(sender, index, name)
     }
     
     @objc func chooseTeamTwo(_ sender: UIButton) {
-        
-        if sender.currentImage == UIImage(named: "colorvishni") {
-            sender.setImage(UIImage(named:"vishni"), for: .normal)
-            teams[1].isSelected = false
-        }
-        else {
-            sender.setImage( UIImage(named:"colorvishni"), for: .normal)
-            teams[1].isSelected = true
-        }
+        let index = 1
+        let name = teams[index].name
+        buttonActions(sender, index, name)
     }
     
     @objc func chooseTeamThree(_ sender: UIButton) {
-        
-        if sender.currentImage == UIImage(named: "colorOlivka") {
-            sender.setImage(UIImage(named:"olivka"), for: .normal)
-            teams[2].isSelected = false
-        }
-        else {
-            sender.setImage( UIImage(named:"colorOlivka"), for: .normal)
-            teams[2].isSelected = true
-        }
+        let index = 2
+        let name = teams[index].name
+        buttonActions(sender, index, name)
     }
     
     @objc func chooseTeamFour(_ sender: UIButton) {
-        
-        if sender.currentImage == UIImage(named: "colorBaklaz") {
-            sender.setImage(UIImage(named:"baklaz"), for: .normal)
-            teams[3].isSelected = false
-        }
-        else {
-            sender.setImage( UIImage(named:"colorBaklaz"), for: .normal)
-            teams[3].isSelected = true
-        }
+        let index = 3
+        let name = teams[index].name
+        buttonActions(sender, index, name)
     }
     
     
     @objc func doneButtonTapped() {
-        var selectedTeams: [Team] = []
-        for team in teams {
-            if team.isSelected == true {
-                selectedTeams.append(team.team)
+        if choosenTeams.count >= 2 {
+            let vc = ChooseTopicViewController()
+            vc.choosenTeams = choosenTeams
+            navigationItem.backButtonTitle = ""
+            navigationController?.pushViewController(vc, animated: true)
+            print("Выбранные команды : счет")
+            for choosenTeam in choosenTeams {
+                print ("\(choosenTeam.name) : \(choosenTeam.points)")
             }
         }
-        if selectedTeams.count >= 2 {
-            let vc = ChooseTopicViewController()
-            navigationItem.backButtonTitle = ""
-            navigationController?.pushViewController(vc, animated: true)}
         else {
             print("NO")
         }
     }
     
+    func buttonActions(_ sender: UIButton, _ index: Int, _ teamName: String) {
+        if sender.currentImage == UIImage(named: teams[index].colorImageName) {
+            sender.setImage(UIImage(named:teams[index].imageName), for: .normal)
+            if let i = choosenTeams.firstIndex(where: { $0.name == teamName}) {
+                choosenTeams.remove(at: i)
+            }
+        } else {
+            sender.setImage( UIImage(named: teams[index].colorImageName), for: .normal)
+            
+            choosenTeams.append(teams[index])
+        }
+    }
+    
 }
+    
+
 
