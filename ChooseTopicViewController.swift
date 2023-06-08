@@ -21,42 +21,42 @@ final class ChooseTopicViewController: UIViewController {
     
     private lazy var celebritiesButton: UIButton = {
         let button = UIButton().prepare()
-        formatButton(button, title: "\(getRusTopicName(Words.celebrities))")
+        formatButton(button, title: "\(Category.celebrities.rawValue)")
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return button
     }()
     
     private lazy var travelButton: UIButton = {
         let button = UIButton().prepare()
-        formatButton(button, title: "Путешествия")
+        formatButton(button, title: "\(Category.travel.rawValue)")
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return button
     }()
     
     private lazy var sportButton: UIButton = {
         let button = UIButton().prepare()
-        formatButton(button, title: "Спорт")
+        formatButton(button, title: "\(Category.sport.rawValue)")
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return button
     }()
     
     private lazy var moviesButton: UIButton = {
         let button = UIButton().prepare()
-        formatButton(button, title: "Фильмы")
+        formatButton(button, title: "\(Category.movies.rawValue)")
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return button
     }()
     
     private lazy var mixButton: UIButton = {
         let button = UIButton().prepare()
-        formatButton(button, title: "Без темы")
+        formatButton(button, title: "\(Category.mixTheme.rawValue)")
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return button
     }()
     
     private lazy var ownWordsButton: UIButton = {
         let button = UIButton().prepare()
-        formatButton(button, title: "Свои слова")
+        formatButton(button, title: "\(Category.ownTheme.rawValue)")
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return button
     }()
@@ -98,6 +98,7 @@ final class ChooseTopicViewController: UIViewController {
 
     }
     @objc func buttonTapped(_ sender: UIButton) {
+        var actualTopicName = sender.titleLabel?.text
         if sender == ownWordsButton {
             let ownWordsVC = OwnWordsViewController()
             navigationItem.backButtonTitle = ""
@@ -121,9 +122,10 @@ final class ChooseTopicViewController: UIViewController {
             default:
                 break
             }
+            print("Выбрана тема: \(actualTopicName!)")
             startgameVC.words = actualWords
             startgameVC.choosenTeams = choosenTeams
-            startgameVC.rusTopicName = getRusTopicName(actualWords)
+            startgameVC.rusTopicName = actualTopicName
         }
     }
 }

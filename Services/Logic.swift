@@ -74,19 +74,12 @@ func formatButton(_ button: UIButton, title: String) {
 
 let time = 30
 
-func getRusTopicName(_ array: [String]) -> String {
-    switch array {
-    case Words.celebrities:
-        return "Знаменитости"
-    case Words.travel:
-        return "Путешествия"
-    case Words.sport:
-        return "Спорт"
-    case Words.movies:
-        return "Фильмы"
-    case mixTheme:
-        return "Без темы"
-    default:
-        return "Свои слова"
-    }
+enum Category: String {
+case celebrities = "Знаменитости"
+case travel = "Путешествия"
+case sport = "Спорт"
+case movies = "Фильмы"
+case mixTheme = "Без темы"
+case ownTheme = "Свои слова"
 }
+

@@ -2,7 +2,7 @@
 //  RoundResultsViewController.swift
 //  AliasProject
 //
-//  Created by Марина Иванова on 07.06.2023.
+//  Created by Белинский Владислав on 07.06.2023.
 //
 
 import UIKit
