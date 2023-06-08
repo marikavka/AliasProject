@@ -22,15 +22,15 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "43CBE4CE-09AB-433A-88AE-31E3BF8E12DA"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TimerViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "124"
-            endingLineNumber = "124"
-            landmarkName = "buttonTapped()"
+            startingLineNumber = "129"
+            endingLineNumber = "129"
+            landmarkName = "timeString(from:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
