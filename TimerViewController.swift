@@ -41,6 +41,8 @@ final class TimerViewController: UIViewController {
         return button
     }()
     
+    let teamLogo = UIImageView()
+    
     var choosenTeams: [Team]!
     
     let buttonStack = UIStackView()
@@ -68,6 +70,10 @@ final class TimerViewController: UIViewController {
         
         view.backgroundColor = UIColor(named: "backgroundColor")
         
+        if let logo = UIImage(named: "\(choosenTeams[teamIndex].colorImageName)") {
+            teamLogo.image = logo
+        }
+        
         startTimer()
         
         let mixedWords = words.shuffled()
@@ -76,18 +82,20 @@ final class TimerViewController: UIViewController {
         vStack.translatesAutoresizingMaskIntoConstraints = false
         buttonStack.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(vStack)
-        view.addSubview(buttonStack)
+        
         
         buttonStack.addArrangedSubview(yesButton)
         buttonStack.addArrangedSubview(noButton)
         buttonStack.axis = .horizontal
         buttonStack.spacing = UIScreen.main.bounds.width * 0.1
-        buttonStack.alignment = .center
-        vStack.addArrangedSubview(timerLabel)
+        
         vStack.addArrangedSubview(wordLabel)
+        vStack.addArrangedSubview(teamLogo)
+        vStack.addArrangedSubview(timerLabel)
+        vStack.addArrangedSubview(buttonStack)
         vStack.axis = .vertical
+        vStack.alignment = .center
         vStack.spacing = UIScreen.main.bounds.width * 0.1
-        vStack.distribution = .fill
         
         NSLayoutConstraint.activate([
             
@@ -97,13 +105,9 @@ final class TimerViewController: UIViewController {
             noButton.widthAnchor.constraint(equalTo: yesButton.widthAnchor, multiplier: 1),
             noButton.widthAnchor.constraint(equalTo: noButton.heightAnchor, multiplier: 1),
 
-            vStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            vStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
             vStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15),
-            vStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15),
-            
-            buttonStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
-            buttonStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15),
-            buttonStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15)
+            vStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15)
             
         ])
         
