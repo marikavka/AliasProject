@@ -74,6 +74,8 @@ func formatButton(_ button: UIButton, title: String) {
 
 let time = 30
 
+let winScore = 15
+
 enum Category: String {
 case celebrities = "Знаменитости"
 case travel = "Путешествия"

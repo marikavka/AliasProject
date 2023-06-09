@@ -41,6 +41,8 @@ final class TimerViewController: UIViewController {
         return button
     }()
     
+    let teamLogo = UIImageView()
+    
     var choosenTeams: [Team]!
     
     let buttonStack = UIStackView()
@@ -59,11 +61,18 @@ final class TimerViewController: UIViewController {
     
     var roundCounter: Int!
     
+    var yesButtonTapCounter = 0
+    var shownWordsCounter = 1
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor(named: "backgroundColor")
+        
+        if let logo = UIImage(named: "\(choosenTeams[teamIndex].colorImageName)") {
+            teamLogo.image = logo
+        }
         
         startTimer()
         
@@ -73,19 +82,25 @@ final class TimerViewController: UIViewController {
         vStack.translatesAutoresizingMaskIntoConstraints = false
         buttonStack.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(vStack)
-        view.addSubview(buttonStack)
+        view.addSubview(wordLabel)
         
         buttonStack.addArrangedSubview(yesButton)
         buttonStack.addArrangedSubview(noButton)
         buttonStack.axis = .horizontal
         buttonStack.spacing = UIScreen.main.bounds.width * 0.1
+        
+        vStack.addArrangedSubview(teamLogo)
         vStack.addArrangedSubview(timerLabel)
-        vStack.addArrangedSubview(wordLabel)
+        vStack.addArrangedSubview(buttonStack)
         vStack.axis = .vertical
+        vStack.alignment = .center
         vStack.spacing = UIScreen.main.bounds.width * 0.1
-        vStack.distribution = .fill
         
         NSLayoutConstraint.activate([
+            
+            wordLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            wordLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
+            wordLabel.bottomAnchor.constraint(equalTo: vStack.topAnchor, constant: -UIScreen.main.bounds.width * 0.1),
             
             yesButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.33),
             yesButton.widthAnchor.constraint(equalTo: yesButton.heightAnchor, multiplier: 1),
@@ -93,14 +108,8 @@ final class TimerViewController: UIViewController {
             noButton.widthAnchor.constraint(equalTo: yesButton.widthAnchor, multiplier: 1),
             noButton.widthAnchor.constraint(equalTo: noButton.heightAnchor, multiplier: 1),
 
-            vStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
-            vStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15),
-            vStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15),
-            
-            buttonStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
-            buttonStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15),
-            buttonStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15)
-            
+            vStack.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: UIScreen.main.bounds.width * 0.1),
+            vStack.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
     }
@@ -132,18 +141,20 @@ final class TimerViewController: UIViewController {
     
     @objc func buttonTapped(_ sender: UIButton) {
         currentWordIndex += 1
-        if currentWordIndex == (words.count) {
-            wordLabel.text = "СЛОВА ЗАКОНЧИЛИСЬ, НАЖМИТЕ ЛЮБУЮ КНОПКУ"
-            wordLabel.font = .systemFont(ofSize: 20)
-        } else if currentWordIndex < (words.count) {
+        shownWordsCounter += 1
+        if sender == yesButton {
+            yesButtonTapCounter += 1
+            
+            choosenTeams[teamIndex!].points += 1
+            print("\(choosenTeams[teamIndex!].name) : \(choosenTeams[teamIndex!].points)")
+        } else {
+            
+            choosenTeams[teamIndex!].points -= 1
+            print("\(choosenTeams[teamIndex!].name) : \(choosenTeams[teamIndex!].points)")
+        }
+        
+        if currentWordIndex < (words.count) {
             wordLabel.text = words[currentWordIndex]
-            if sender == yesButton {
-                choosenTeams[teamIndex!].points += 1
-                print("\(choosenTeams[teamIndex!].name) : \(choosenTeams[teamIndex!].points)")
-            } else {
-                choosenTeams[teamIndex!].points -= 1
-                print("\(choosenTeams[teamIndex!].name) : \(choosenTeams[teamIndex!].points)")
-            }
         } else {
             goToTheNextScreen()
         }
@@ -161,6 +172,9 @@ final class TimerViewController: UIViewController {
         vc.roundCounter = roundCounter
         vc.choosenTeams = choosenTeams
         vc.teamIndex = teamIndex
+        vc.yesButtonTapCounter = yesButtonTapCounter
+        vc.shownWordsCounter = shownWordsCounter
+        vc.words = words
     }
 }
     
