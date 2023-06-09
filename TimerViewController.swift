@@ -59,6 +59,9 @@ final class TimerViewController: UIViewController {
     
     var roundCounter: Int!
     
+    var yesButtonTapCounter = 0
+    var shownWordsCounter = 1
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,6 +82,7 @@ final class TimerViewController: UIViewController {
         buttonStack.addArrangedSubview(noButton)
         buttonStack.axis = .horizontal
         buttonStack.spacing = UIScreen.main.bounds.width * 0.1
+        buttonStack.alignment = .center
         vStack.addArrangedSubview(timerLabel)
         vStack.addArrangedSubview(wordLabel)
         vStack.axis = .vertical
@@ -132,18 +136,20 @@ final class TimerViewController: UIViewController {
     
     @objc func buttonTapped(_ sender: UIButton) {
         currentWordIndex += 1
-        if currentWordIndex == (words.count) {
-            wordLabel.text = "СЛОВА ЗАКОНЧИЛИСЬ, НАЖМИТЕ ЛЮБУЮ КНОПКУ"
-            wordLabel.font = .systemFont(ofSize: 20)
-        } else if currentWordIndex < (words.count) {
+        shownWordsCounter += 1
+        if sender == yesButton {
+            yesButtonTapCounter += 1
+            
+            choosenTeams[teamIndex!].points += 1
+            print("\(choosenTeams[teamIndex!].name) : \(choosenTeams[teamIndex!].points)")
+        } else {
+            
+            choosenTeams[teamIndex!].points -= 1
+            print("\(choosenTeams[teamIndex!].name) : \(choosenTeams[teamIndex!].points)")
+        }
+        
+        if currentWordIndex < (words.count) {
             wordLabel.text = words[currentWordIndex]
-            if sender == yesButton {
-                choosenTeams[teamIndex!].points += 1
-                print("\(choosenTeams[teamIndex!].name) : \(choosenTeams[teamIndex!].points)")
-            } else {
-                choosenTeams[teamIndex!].points -= 1
-                print("\(choosenTeams[teamIndex!].name) : \(choosenTeams[teamIndex!].points)")
-            }
         } else {
             goToTheNextScreen()
         }
@@ -161,6 +167,9 @@ final class TimerViewController: UIViewController {
         vc.roundCounter = roundCounter
         vc.choosenTeams = choosenTeams
         vc.teamIndex = teamIndex
+        vc.yesButtonTapCounter = yesButtonTapCounter
+        vc.shownWordsCounter = shownWordsCounter
+        vc.words = words
     }
 }
     
