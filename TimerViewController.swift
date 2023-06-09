@@ -82,14 +82,13 @@ final class TimerViewController: UIViewController {
         vStack.translatesAutoresizingMaskIntoConstraints = false
         buttonStack.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(vStack)
-        
+        view.addSubview(wordLabel)
         
         buttonStack.addArrangedSubview(yesButton)
         buttonStack.addArrangedSubview(noButton)
         buttonStack.axis = .horizontal
         buttonStack.spacing = UIScreen.main.bounds.width * 0.1
         
-        vStack.addArrangedSubview(wordLabel)
         vStack.addArrangedSubview(teamLogo)
         vStack.addArrangedSubview(timerLabel)
         vStack.addArrangedSubview(buttonStack)
@@ -99,16 +98,18 @@ final class TimerViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             
+            wordLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            wordLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
+            wordLabel.bottomAnchor.constraint(equalTo: vStack.topAnchor, constant: -UIScreen.main.bounds.width * 0.1),
+            
             yesButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.33),
             yesButton.widthAnchor.constraint(equalTo: yesButton.heightAnchor, multiplier: 1),
 
             noButton.widthAnchor.constraint(equalTo: yesButton.widthAnchor, multiplier: 1),
             noButton.widthAnchor.constraint(equalTo: noButton.heightAnchor, multiplier: 1),
 
-            vStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
-            vStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15),
-            vStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15)
-            
+            vStack.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: UIScreen.main.bounds.width * 0.1),
+            vStack.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
     }
