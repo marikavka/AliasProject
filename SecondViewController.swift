@@ -13,7 +13,7 @@ class SecondViewController: UIViewController {
     
     private let label: UILabel = {
         let label = UILabel().prepare()
-        label.text = "Выбирайте команды!"
+        label.text = "Выбирайте минимум 2 команды!"
         label.font = .systemFont(ofSize: 30)
         label.textColor = UIColor(red: 0.17, green: 0.08, blue: 0, alpha: 1)
         label.textAlignment = .center
@@ -53,7 +53,7 @@ class SecondViewController: UIViewController {
         let button = UIButton().prepare()
         button.setTitle("готово", for: .normal)
         button.setTitleColor(UIColor(red: 0.4, green: 0.5, blue: 0.3, alpha: 1), for: .normal)
-        button.backgroundColor = UIColor(red: 0.17, green: 0.08, blue: 0, alpha: 1)
+        button.backgroundColor = UIColor(red: 0.17, green: 0.08, blue: 0, alpha: 0.3)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         button.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
         button.layer.cornerRadius = 15
@@ -99,7 +99,7 @@ class SecondViewController: UIViewController {
             label.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15),
             
             hStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            hStack.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 100),
+            hStack.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 70),
             
             doneButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -70),
             doneButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 100),
@@ -149,9 +149,6 @@ class SecondViewController: UIViewController {
                 print ("\(choosenTeam.name) : \(choosenTeam.points)")
             }
         }
-        else {
-            print("NO")
-        }
     }
     
     func buttonActions(_ sender: UIButton, _ index: Int, _ teamName: String) {
@@ -164,6 +161,14 @@ class SecondViewController: UIViewController {
             sender.setImage( UIImage(named: teams[index].colorImageName), for: .normal)
             
             choosenTeams.append(teams[index])
+        }
+        
+        if choosenTeams.count >= 2 {
+            doneButton.backgroundColor = UIColor(red: 0.17, green: 0.08, blue: 0, alpha: 1)
+            doneButton.isEnabled = true
+        } else {
+            doneButton.backgroundColor = UIColor(red: 0.17, green: 0.08, blue: 0, alpha: 0.3)
+            doneButton.isEnabled = false
         }
     }
     

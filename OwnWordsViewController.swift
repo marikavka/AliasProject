@@ -58,12 +58,12 @@ class OwnWordsViewController: UIViewController {
         vStack.addArrangedSubview(readyButton)
         vStack.axis = .vertical
         vStack.alignment = .center
-        vStack.spacing = 30
+        vStack.spacing = 15
         
         NSLayoutConstraint.activate([
 
             vStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            vStack.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -60),
+            vStack.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -100),
             vStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
             
             newWordTF.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5),

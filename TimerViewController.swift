@@ -71,16 +71,16 @@ final class TimerViewController: UIViewController {
         wordLabel.text = mixedWords[currentWordIndex]
         
         vStack.translatesAutoresizingMaskIntoConstraints = false
+        buttonStack.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(vStack)
+        view.addSubview(buttonStack)
         
         buttonStack.addArrangedSubview(yesButton)
         buttonStack.addArrangedSubview(noButton)
         buttonStack.axis = .horizontal
         buttonStack.spacing = UIScreen.main.bounds.width * 0.1
-        
         vStack.addArrangedSubview(timerLabel)
         vStack.addArrangedSubview(wordLabel)
-        vStack.addArrangedSubview(buttonStack)
         vStack.axis = .vertical
         vStack.spacing = UIScreen.main.bounds.width * 0.1
         vStack.distribution = .fill
@@ -89,12 +89,17 @@ final class TimerViewController: UIViewController {
             
             yesButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.33),
             yesButton.widthAnchor.constraint(equalTo: yesButton.heightAnchor, multiplier: 1),
-            
+
             noButton.widthAnchor.constraint(equalTo: yesButton.widthAnchor, multiplier: 1),
             noButton.widthAnchor.constraint(equalTo: noButton.heightAnchor, multiplier: 1),
+
+            vStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            vStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15),
+            vStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15),
             
-            vStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            vStack.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            buttonStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
+            buttonStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15),
+            buttonStack.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15)
             
         ])
         
@@ -158,25 +163,5 @@ final class TimerViewController: UIViewController {
         vc.teamIndex = teamIndex
     }
 }
-    
-    
-    
-    
-    
-    
-    // 1 shuffle array (take it from DataStore)
-    // 2 create iterator var (currentWordIndex)
-    // 3 take item
-    // 4 go next (increment(+1) currentWordIndex and take next item)
-    
-    // 1 shuffle array
-    // 2 take word from array
-    // 3 remove word from array
-    // Example:
-    //    var words =  [1, 2, 3]
-    //    let elem = words.popFirst()
-    // elem 1
-    // words [2, 3]
-    
     
     
