@@ -7,7 +7,7 @@
 
 import UIKit
 
-class OwnWordsViewController: UIViewController {
+final class OwnWordsViewController: UIViewController {
     
     private let label: UILabel = {
         let label = UILabel().prepare()
@@ -88,10 +88,14 @@ class OwnWordsViewController: UIViewController {
     }
     
     @objc func readyButtonTapped(_ sender: UIButton) {
-        let timerVC = TimerViewController()
-        navigationItem.backButtonTitle = ""
-        navigationController?.pushViewController(timerVC, animated: true)
-        timerVC.words = actualWords.shuffled()
+        Game.shared.ownWords = actualWords
+        Game.shared.setCategory(.mixTheme)
+        let vc = StartGameAndPointsViewController()
+        let navVC = UINavigationController(rootViewController: vc)
+        navVC.navigationBar.tintColor = .black
+        navVC.modalTransitionStyle = .flipHorizontal
+        navVC.modalPresentationStyle = .fullScreen
+        present(navVC, animated: true)
     }
 
 }

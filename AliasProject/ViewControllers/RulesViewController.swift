@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RulesViewController: UIViewController {
+final class RulesViewController: UIViewController {
 
     private let label: UILabel = {
         let label = UILabel().prepare()

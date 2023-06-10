@@ -1,5 +1,5 @@
 //
-//  SecondViewController.swift
+//  ChooseTeamViewController.swift
 //  AliasProject
 //
 //  Created by Мария Купчинская on 03.06.2023.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SecondViewController: UIViewController {
+final class ChooseTeamViewController: UIViewController {
     
     private lazy var rulesButton = UIBarButtonItem(title: "Как играть?", style: .plain, target: self, action: #selector(rulesButtonTapped))
     
@@ -141,7 +141,7 @@ class SecondViewController: UIViewController {
     @objc func doneButtonTapped() {
         if choosenTeams.count >= 2 {
             let vc = ChooseTopicViewController()
-            vc.choosenTeams = choosenTeams
+            Game.shared.setTeams(choosenTeams)
             navigationItem.backButtonTitle = ""
             navigationController?.pushViewController(vc, animated: true)
             print("Выбранные команды : счет")
