@@ -7,7 +7,7 @@
 
 import UIKit
 
-class StartGameAndPointsViewController: UIViewController {
+final class StartGameAndPointsViewController: UIViewController {
     
     private let roundTopicLabel: UILabel = {
         let label = UILabel().prepare()
@@ -27,7 +27,7 @@ class StartGameAndPointsViewController: UIViewController {
         return label
     }()
     
-    let teamLogo = UIImageView()
+    private let teamLogo = UIImageView().prepare()
     
     private let numberOfPoints: UILabel = {
         let numberOfPoints = UILabel().prepare()
@@ -49,25 +49,15 @@ class StartGameAndPointsViewController: UIViewController {
         return button
     }()
     
-    var choosenTeams: [Team]!
-    
-    var words: [String]!
-    
-    var rusTopicName: String!
+    private var rusTopicName: String?
     
     let vStack = UIStackView()
     
-    var roundCounter = 1
-    
-    var teamIndex = 0
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(red: 0.4, green: 0.5, blue: 0.3, alpha: 1)
         
-        if let logo = UIImage(named: "\(choosenTeams[teamIndex].colorImageName)") {
-            teamLogo.image = logo
-        }
+        rusTopicName = Game.shared.category?.rawValue
         
         vStack.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(vStack)
@@ -82,14 +72,20 @@ class StartGameAndPointsViewController: UIViewController {
         vStack.spacing = 30
         vStack.alignment = .center
         
-        roundTopicLabel.text = """
-        Раунд № \(roundCounter)
-        Тема: \(rusTopicName!)
-        """
         
-        warningLabel.text = """
-\(choosenTeams[teamIndex].name), у вас будет \(time) секунд, чтобы угадать максимальное количество слов, готовы?
-"""
+        
+        if let currentTeam = Game.shared.currentTeam {
+            
+            roundTopicLabel.text = """
+            Играет команда: \(currentTeam.name)
+            Тема: \(rusTopicName!)
+            """
+            
+            warningLabel.text = """
+    У вас будет \(Game.shared.time) секунд, чтобы угадать максимальное количество слов, готовы?
+    """
+            teamLogo.image = UIImage(named: "\(currentTeam.colorImageName)")
+        }
         
         NSLayoutConstraint.activate([
             
@@ -98,7 +94,9 @@ class StartGameAndPointsViewController: UIViewController {
             vStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             vStack.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             vStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
-            ])
+            teamLogo.widthAnchor.constraint(equalToConstant: 70),
+            teamLogo.heightAnchor.constraint(equalToConstant: 70)
+        ])
     }
     @objc func doneButtonTapped() {
         let timerVC = TimerViewController()
@@ -107,11 +105,6 @@ class StartGameAndPointsViewController: UIViewController {
         navVC.modalTransitionStyle = .flipHorizontal
         navVC.modalPresentationStyle = .fullScreen
         present(navVC, animated: true)
-        timerVC.words = words
-        timerVC.choosenTeams = choosenTeams
-        timerVC.teamIndex = teamIndex
-        timerVC.roundCounter = roundCounter
     }
-    
 
 }

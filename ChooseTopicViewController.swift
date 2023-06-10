@@ -61,11 +61,7 @@ final class ChooseTopicViewController: UIViewController {
         return button
     }()
     
-    let buttonStack = UIStackView()
-    
-    var choosenTeams: [Team]!
-    
-    var actualWords: [String] = []
+    private let buttonStack = UIStackView().prepare()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,7 +69,6 @@ final class ChooseTopicViewController: UIViewController {
         view.addSubview(label)
         view.addSubview(celebritiesButton)
         
-        buttonStack.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(buttonStack)
         
         buttonStack.addArrangedSubview(celebritiesButton)
@@ -95,37 +90,35 @@ final class ChooseTopicViewController: UIViewController {
             buttonStack.topAnchor.constraint(equalTo: label.topAnchor, constant: 100),
             buttonStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 100)
         ])
-
+        
     }
+    
     @objc func buttonTapped(_ sender: UIButton) {
-        var actualTopicName = sender.titleLabel?.text
         if sender == ownWordsButton {
             let ownWordsVC = OwnWordsViewController()
             navigationItem.backButtonTitle = ""
             navigationController?.pushViewController(ownWordsVC, animated: true)
         } else {
-            let startgameVC = StartGameAndPointsViewController()
-            navigationItem.backButtonTitle = ""
-            navigationController?.pushViewController(startgameVC, animated: true)
-            
             switch sender {
             case celebritiesButton:
-                actualWords = Words.celebrities
+                Game.shared.setCategory(.celebrities)
             case travelButton:
-                actualWords = Words.travel
+                Game.shared.setCategory(.travel)
             case sportButton:
-                actualWords = Words.sport
+                Game.shared.setCategory(.sport)
             case moviesButton:
-                actualWords = Words.movies
+                Game.shared.setCategory(.movies)
             case mixButton:
-                actualWords = mixTheme
+                Game.shared.setCategory(.mixTheme)
             default:
                 break
             }
-            print("Выбрана тема: \(actualTopicName!)")
-            startgameVC.words = actualWords
-            startgameVC.choosenTeams = choosenTeams
-            startgameVC.rusTopicName = actualTopicName
+            let startgameVC = StartGameAndPointsViewController()
+            
+            navigationItem.backButtonTitle = ""
+            navigationController?.pushViewController(startgameVC, animated: true)
+            
+            print("Выбрана тема: \(Game.shared.category!)")
         }
     }
 }

@@ -64,6 +64,7 @@ final class ViewController: UIViewController {
         
     }
     @objc func buttonTapped() {
+        Game.shared.startNewGame()
         let vc = SecondViewController()
         let navVC = UINavigationController(rootViewController: vc)
         navVC.navigationBar.tintColor = .black
@@ -71,6 +72,7 @@ final class ViewController: UIViewController {
         navVC.modalPresentationStyle = .fullScreen
         present(navVC, animated: true)
     }
+    
     @objc func rulesButtonTapped() {
         let vc = RulesViewController()
         navigationItem.backButtonTitle = ""

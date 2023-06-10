@@ -59,10 +59,11 @@ enum Words {
         "Бойцовский клуб",
         "17 мгновений весны"
     ]
+    
+    static let commonThemeWords = Words.celebrities + Words.movies + Words.sport + Words.travel
+    
+    static let mixTheme = Words.commonThemeWords.shuffled()
 }
-
-let commonThemeWords = Words.celebrities + Words.movies + Words.sport + Words.travel
-let mixTheme = commonThemeWords.shuffled()
 
 func formatButton(_ button: UIButton, title: String) {
     button.setTitle(title, for: .normal)
@@ -72,16 +73,29 @@ func formatButton(_ button: UIButton, title: String) {
     button.layer.cornerRadius = 15
 }
 
-let time = 30
-
-let winScore = 15
-
 enum Category: String {
-case celebrities = "Знаменитости"
-case travel = "Путешествия"
-case sport = "Спорт"
-case movies = "Фильмы"
-case mixTheme = "Без темы"
-case ownTheme = "Свои слова"
+    case celebrities = "Знаменитости"
+    case travel = "Путешествия"
+    case sport = "Спорт"
+    case movies = "Фильмы"
+    case mixTheme = "Без темы"
+    case ownTheme = "Свои слова"
+    
+    var words: [String] {
+        switch self {
+        case .celebrities:
+            return Words.celebrities
+        case .travel:
+            return Words.travel
+        case .sport:
+            return Words.sport
+        case .movies:
+            return Words.movies
+        case .mixTheme:
+            return Words.mixTheme
+        case .ownTheme:
+            return Game.shared.ownWords
+        }
+    }
 }
 

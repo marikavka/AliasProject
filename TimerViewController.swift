@@ -11,7 +11,7 @@ final class TimerViewController: UIViewController {
     
     private let timerLabel: UILabel = {
         let label = UILabel().prepare()
-        label.text = "00:\(time)"
+        label.text = "00:\(Game.shared.time)"
         label.font = .monospacedDigitSystemFont(ofSize: 80, weight: .bold)
         label.textColor = UIColor(named: "buttonColor")
         label.textAlignment = .center
@@ -43,47 +43,33 @@ final class TimerViewController: UIViewController {
     
     let teamLogo = UIImageView()
     
-    var choosenTeams: [Team]!
-    
     let buttonStack = UIStackView()
     
     let vStack = UIStackView()
     
     var timer: Timer?
     
-    var seconds = time
-    
-    var currentWordIndex = 0
-    
-    var words: [String]!
-    
-    var teamIndex: Int!
-    
-    var roundCounter: Int!
-    
-    var yesButtonTapCounter = 0
-    var shownWordsCounter = 1
-    
+    var seconds = Game.shared.time
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor(named: "backgroundColor")
         
-        if let logo = UIImage(named: "\(choosenTeams[teamIndex].colorImageName)") {
+        if let currentTeam = Game.shared.currentTeam {
+            let logo = UIImage(named: "\(currentTeam.colorImageName)")
             teamLogo.image = logo
         }
         
         startTimer()
         
-        let mixedWords = words.shuffled()
-        wordLabel.text = mixedWords[currentWordIndex]
+        wordLabel.text = Game.shared.getNextWord()
         
         vStack.translatesAutoresizingMaskIntoConstraints = false
         buttonStack.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(vStack)
-        view.addSubview(wordLabel)
-        
+            view.addSubview(vStack)
+            view.addSubview(wordLabel)
+            
         buttonStack.addArrangedSubview(yesButton)
         buttonStack.addArrangedSubview(noButton)
         buttonStack.axis = .horizontal
@@ -140,41 +126,27 @@ final class TimerViewController: UIViewController {
     }
     
     @objc func buttonTapped(_ sender: UIButton) {
-        currentWordIndex += 1
-        shownWordsCounter += 1
         if sender == yesButton {
-            yesButtonTapCounter += 1
-            
-            choosenTeams[teamIndex!].points += 1
-            print("\(choosenTeams[teamIndex!].name) : \(choosenTeams[teamIndex!].points)")
+            Game.shared.setAnswer(isCorrect: true)
         } else {
-            
-            choosenTeams[teamIndex!].points -= 1
-            print("\(choosenTeams[teamIndex!].name) : \(choosenTeams[teamIndex!].points)")
+            Game.shared.setAnswer(isCorrect: false)
         }
         
-        if currentWordIndex < (words.count) {
-            wordLabel.text = words[currentWordIndex]
+        if let word = Game.shared.getNextWord() {
+            wordLabel.text = word
         } else {
             goToTheNextScreen()
         }
     }
     
     private func goToTheNextScreen() {
+        Game.shared.finishTeamStep()
         let vc = RoundResultsViewController()
         let navVC = UINavigationController(rootViewController: vc)
         navVC.navigationBar.tintColor = .black
         navVC.modalTransitionStyle = .flipHorizontal
         navVC.modalPresentationStyle = .fullScreen
         present(navVC, animated: true)
-        let score = choosenTeams[teamIndex!].points
-        vc.score = score
-        vc.roundCounter = roundCounter
-        vc.choosenTeams = choosenTeams
-        vc.teamIndex = teamIndex
-        vc.yesButtonTapCounter = yesButtonTapCounter
-        vc.shownWordsCounter = shownWordsCounter
-        vc.words = words
     }
 }
     

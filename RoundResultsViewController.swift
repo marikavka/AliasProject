@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RoundResultsViewController: UIViewController {
+final class RoundResultsViewController: UIViewController {
     
     private let roundTopicLabel: UILabel = {
         let label = UILabel().prepare()
@@ -27,7 +27,7 @@ class RoundResultsViewController: UIViewController {
         return label
     }()
     
-    let teamLogo = UIImageView()
+    private let teamLogo = UIImageView()
     
     private let numberOfPoints: UILabel = {
         let numberOfPoints = UILabel().prepare()
@@ -49,30 +49,11 @@ class RoundResultsViewController: UIViewController {
         return button
     }()
     
-    var score: Int!
-    
-    let vStack = UIStackView()
-    
-    var roundCounter: Int!
-    
-    var words: [String]!
-    
-    var choosenTeams: [Team]!
-    
-    var teamIndex: Int!
-    var yesButtonTapCounter: Int!
-    var shownWordsCounter: Int!
-    
-    var maxScore = 0
-    var winner = ""
+    private let vStack = UIStackView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "backgroundColor")
-        
-        if let logo = UIImage(named: "\(choosenTeams[teamIndex].colorImageName)") {
-            teamLogo.image = logo
-        }
         
         vStack.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(vStack)
@@ -87,12 +68,7 @@ class RoundResultsViewController: UIViewController {
         vStack.spacing = 30
         vStack.alignment = .center
         
-        getTheWinner()
-        
-        getLabelsText()
-        
-        
-        
+        checkWinner()
         
         NSLayoutConstraint.activate([
             
@@ -103,79 +79,50 @@ class RoundResultsViewController: UIViewController {
             vStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
         ])
     }
+    
     @objc func doneButtonTapped() {
-        
-        if teamIndex == 0 {
-            roundCounter += 1
-        }
-        if maxScore < winScore {
-            let timerVC = TimerViewController()
-            let navVC = UINavigationController(rootViewController: timerVC)
-            navVC.navigationBar.tintColor = .black
-            navVC.modalTransitionStyle = .flipHorizontal
-            navVC.modalPresentationStyle = .fullScreen
-            present(navVC, animated: true)
-            timerVC.words = words
-            timerVC.choosenTeams = choosenTeams
-            timerVC.teamIndex = teamIndex
-            timerVC.roundCounter = roundCounter
-        } else {
+        if Game.shared.isGameOver == true {
             let startVC = ViewController()
             let navVC = UINavigationController(rootViewController: startVC)
             navVC.navigationBar.tintColor = .black
             navVC.modalTransitionStyle = .flipHorizontal
             navVC.modalPresentationStyle = .fullScreen
             present(navVC, animated: true)
-        }
-        
-    }
-    
-    
-    
-    private func getTeamIndex() -> Int {
-        if teamIndex < choosenTeams.count - 1 {
-            teamIndex += 1
+            
         } else {
-            teamIndex = 0
+            let timerVC = TimerViewController()
+            let navVC = UINavigationController(rootViewController: timerVC)
+            navVC.navigationBar.tintColor = .black
+            navVC.modalTransitionStyle = .flipHorizontal
+            navVC.modalPresentationStyle = .fullScreen
+            present(navVC, animated: true)
         }
-        return teamIndex
     }
     
-    private func getTheWinner() {
-        if teamIndex == choosenTeams.count - 1 {
-            for team in choosenTeams {
-                if team.points > maxScore {
-                    maxScore = team.points
-                    winner = team.name
-                    print("После \(roundCounter!) раунда максимальный результат - \(maxScore) очков у команды \(winner)")
-                    
-                    if maxScore >= winScore {
-                        print("Победили \(winner)")
-                    }
-                }
+    private func checkWinner() {
+        if Game.shared.isGameOver {
+            let winners = Game.shared.getWinners()
+            if winners.count == 1 {
+                let winner = winners[0]
+                roundTopicLabel.text = "Победа!"
+                teamLogo.image = UIImage(named: winner.colorImageName)
+            } else {
+                roundTopicLabel.text = "Поздравляем, в игре ничья!"
             }
-        }
-    }
-    
-    private func getLabelsText() {
-        if maxScore < winScore {
-            roundTopicLabel.text = """
-        В раунде № \(roundCounter!) \(choosenTeams[teamIndex].name) угадали \(yesButtonTapCounter!) слов из \(shownWordsCounter!)
-        """
-            teamIndex = getTeamIndex()
-            scoreLabel.text = getScoreLabelText() + "Cледующий ход команды \(choosenTeams[teamIndex].name), готовы?"
-            doneButton.setTitle("СТАРТ", for: .normal)
-        } else {
-            roundTopicLabel.text = "Победила команда \(winner) набрав \(maxScore) очков!"
-            teamIndex = getTeamIndex()
             scoreLabel.text = "Итоговый счет \n" + getScoreLabelText()
             doneButton.setTitle("НОВАЯ ИГРА", for: .normal)
+        } else {
+            if let curentTeam = Game.shared.currentTeam {
+                scoreLabel.text = getScoreLabelText() + "Cледующий ход команды \(curentTeam.name), готовы?"
+                teamLogo.image = UIImage(named: curentTeam.colorImageName)
+                doneButton.setTitle("ПРОДОЛЖИТЬ", for: .normal)
+            }
         }
     }
     
     private func getScoreLabelText() -> String {
         var labelText = ""
-        for team in choosenTeams {
+        for team in Game.shared.teams {
             labelText += "\(team.name) : \(team.points)\n"
         }
         return labelText
