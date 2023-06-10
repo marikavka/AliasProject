@@ -89,10 +89,13 @@ final class OwnWordsViewController: UIViewController {
     
     @objc func readyButtonTapped(_ sender: UIButton) {
         Game.shared.ownWords = actualWords
-        Game.shared.setCategory(.ownTheme)
-        let timerVC = TimerViewController()
-        navigationItem.backButtonTitle = ""
-        navigationController?.pushViewController(timerVC, animated: true)
+        Game.shared.setCategory(.mixTheme)
+        let vc = StartGameAndPointsViewController()
+        let navVC = UINavigationController(rootViewController: vc)
+        navVC.navigationBar.tintColor = .black
+        navVC.modalTransitionStyle = .flipHorizontal
+        navVC.modalPresentationStyle = .fullScreen
+        present(navVC, animated: true)
     }
 
 }

@@ -1,5 +1,5 @@
 //
-//  SecondViewController.swift
+//  ChooseTeamViewController.swift
 //  AliasProject
 //
 //  Created by Мария Купчинская on 03.06.2023.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class SecondViewController: UIViewController {
+final class ChooseTeamViewController: UIViewController {
     
     private lazy var rulesButton = UIBarButtonItem(title: "Как играть?", style: .plain, target: self, action: #selector(rulesButtonTapped))
     

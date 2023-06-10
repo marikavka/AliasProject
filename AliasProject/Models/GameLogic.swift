@@ -50,12 +50,12 @@ final class Game {
     
     func setCategory(_ category: Category) {
         self.category = category
-        self.remainingWords = category.words.shuffled()
+        self.remainingWords = (category.words + ownWords).shuffled()
     }
     
     func getNextWord() -> String? {
         isRoundOver = false
-        return remainingWords.popLast()
+        return remainingWords.popLast()?.capitalized
     }
     private var currentTeamIndex = 0
     
@@ -104,10 +104,5 @@ final class Game {
             return []
         }
     }
-        
-    
-    // update curr team
-    // finishTeamStep -> State ?
-    // add to answers counter
-    
+
 }

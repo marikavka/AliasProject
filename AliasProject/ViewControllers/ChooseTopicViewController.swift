@@ -54,13 +54,6 @@ final class ChooseTopicViewController: UIViewController {
         return button
     }()
     
-    private lazy var ownWordsButton: UIButton = {
-        let button = UIButton().prepare()
-        formatButton(button, title: "\(Category.ownTheme.rawValue)")
-        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-        return button
-    }()
-    
     private let buttonStack = UIStackView().prepare()
     
     override func viewDidLoad() {
@@ -76,7 +69,6 @@ final class ChooseTopicViewController: UIViewController {
         buttonStack.addArrangedSubview(sportButton)
         buttonStack.addArrangedSubview(moviesButton)
         buttonStack.addArrangedSubview(mixButton)
-        buttonStack.addArrangedSubview(ownWordsButton)
         buttonStack.axis = .vertical
         buttonStack.spacing = 30
         
@@ -94,10 +86,10 @@ final class ChooseTopicViewController: UIViewController {
     }
     
     @objc func buttonTapped(_ sender: UIButton) {
-        if sender == ownWordsButton {
-            let ownWordsVC = OwnWordsViewController()
+        if sender == mixButton {
+            let mixButtonVC = AdditionalWordsViewController()
             navigationItem.backButtonTitle = ""
-            navigationController?.pushViewController(ownWordsVC, animated: true)
+            navigationController?.pushViewController(mixButtonVC, animated: true)
         } else {
             switch sender {
             case celebritiesButton:
@@ -108,8 +100,6 @@ final class ChooseTopicViewController: UIViewController {
                 Game.shared.setCategory(.sport)
             case moviesButton:
                 Game.shared.setCategory(.movies)
-            case mixButton:
-                Game.shared.setCategory(.mixTheme)
             default:
                 break
             }
