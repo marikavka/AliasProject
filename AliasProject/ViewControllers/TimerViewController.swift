@@ -20,7 +20,7 @@ final class TimerViewController: UIViewController {
     
     private let wordLabel: UILabel = {
         let label = UILabel().prepare()
-        label.font = .systemFont(ofSize: 40)
+        label.font = .systemFont(ofSize: 30, weight: .bold)
         label.textColor = UIColor(named: "buttonColor")
         label.textAlignment = .center
         label.numberOfLines = 0
@@ -95,7 +95,10 @@ final class TimerViewController: UIViewController {
             noButton.widthAnchor.constraint(equalTo: noButton.heightAnchor, multiplier: 1),
 
             vStack.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: UIScreen.main.bounds.width * 0.1),
-            vStack.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            vStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            teamLogo.widthAnchor.constraint(equalToConstant: 70),
+            teamLogo.heightAnchor.constraint(equalToConstant: 70)
         ])
         
     }

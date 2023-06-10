@@ -13,7 +13,7 @@ final class ChooseTeamViewController: UIViewController {
     
     private let label: UILabel = {
         let label = UILabel().prepare()
-        label.text = "Выбирайте минимум 2 команды!"
+        label.text = "Выберите минимум 2 команды!"
         label.font = .systemFont(ofSize: 30)
         label.textColor = UIColor(red: 0.17, green: 0.08, blue: 0, alpha: 1)
         label.textAlignment = .center
@@ -102,8 +102,8 @@ final class ChooseTeamViewController: UIViewController {
             hStack.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 70),
             
             doneButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -70),
-            doneButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 100),
-            doneButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -100)
+            doneButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 70),
+            doneButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -70)
         ])
     }
     

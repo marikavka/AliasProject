@@ -11,8 +11,8 @@ final class Game {
     
     static let shared = Game()
     
-    let time = 10
-    let winScore = 10
+    let time = 30
+    let winScore = 20
     
     private(set) var isGameOver = false
     private(set) var isRoundOver = false
