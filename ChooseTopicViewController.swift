@@ -98,11 +98,15 @@ final class ChooseTopicViewController: UIViewController {
 
     }
     @objc func buttonTapped(_ sender: UIButton) {
-        var actualTopicName = sender.titleLabel?.text
+        let actualTopicName = sender.titleLabel?.text
         if sender == ownWordsButton {
             let ownWordsVC = OwnWordsViewController()
             navigationItem.backButtonTitle = ""
             navigationController?.pushViewController(ownWordsVC, animated: true)
+            ownWordsVC.actualWords = actualWords
+            ownWordsVC.choosenTeams = choosenTeams
+            ownWordsVC.actualTopicName = actualTopicName
+            print("Выбрана тема: \(actualTopicName!)")
         } else {
             let startgameVC = StartGameAndPointsViewController()
             navigationItem.backButtonTitle = ""
@@ -125,7 +129,7 @@ final class ChooseTopicViewController: UIViewController {
             print("Выбрана тема: \(actualTopicName!)")
             startgameVC.words = actualWords
             startgameVC.choosenTeams = choosenTeams
-            startgameVC.rusTopicName = actualTopicName
+            startgameVC.actualTopicName = actualTopicName
         }
     }
 }
