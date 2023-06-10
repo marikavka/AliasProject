@@ -53,7 +53,7 @@ class StartGameAndPointsViewController: UIViewController {
     
     var words: [String]!
     
-    var rusTopicName: String!
+    var actualTopicName: String!
     
     let vStack = UIStackView()
     
@@ -84,7 +84,7 @@ class StartGameAndPointsViewController: UIViewController {
         
         roundTopicLabel.text = """
         Раунд № \(roundCounter)
-        Тема: \(rusTopicName!)
+        Тема: \(actualTopicName!)
         """
         
         warningLabel.text = """

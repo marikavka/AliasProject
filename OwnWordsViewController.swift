@@ -44,6 +44,10 @@ class OwnWordsViewController: UIViewController {
     let vStack = UIStackView()
     
     var actualWords: [String] = []
+    
+    var choosenTeams: [Team]!
+    
+    var actualTopicName: String!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,10 +92,12 @@ class OwnWordsViewController: UIViewController {
     }
     
     @objc func readyButtonTapped(_ sender: UIButton) {
-        let timerVC = TimerViewController()
+        let startgameVC = StartGameAndPointsViewController()
         navigationItem.backButtonTitle = ""
-        navigationController?.pushViewController(timerVC, animated: true)
-        timerVC.words = actualWords.shuffled()
+        navigationController?.pushViewController(startgameVC, animated: true)
+        startgameVC.words = actualWords.shuffled()
+        startgameVC.choosenTeams = choosenTeams
+        startgameVC.actualTopicName = actualTopicName
     }
 
 }

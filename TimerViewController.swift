@@ -177,5 +177,3 @@ final class TimerViewController: UIViewController {
         vc.words = words
     }
 }
-    
-    
