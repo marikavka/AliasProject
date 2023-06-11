@@ -97,8 +97,8 @@ final class TimerViewController: UIViewController {
             vStack.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: UIScreen.main.bounds.width * 0.1),
             vStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            teamLogo.widthAnchor.constraint(equalToConstant: 150),
-            teamLogo.heightAnchor.constraint(equalToConstant: 150)
+            teamLogo.widthAnchor.constraint(equalToConstant: 100),
+            teamLogo.heightAnchor.constraint(equalToConstant: 100)
         ])
         
     }
