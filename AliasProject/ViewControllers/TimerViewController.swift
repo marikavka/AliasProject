@@ -97,8 +97,8 @@ final class TimerViewController: UIViewController {
             vStack.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: UIScreen.main.bounds.width * 0.1),
             vStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            teamLogo.widthAnchor.constraint(equalToConstant: 70),
-            teamLogo.heightAnchor.constraint(equalToConstant: 70)
+            teamLogo.widthAnchor.constraint(equalToConstant: 150),
+            teamLogo.heightAnchor.constraint(equalToConstant: 150)
         ])
         
     }
@@ -138,6 +138,10 @@ final class TimerViewController: UIViewController {
         if let word = Game.shared.getNextWord() {
             wordLabel.text = word
         } else {
+            goToTheNextScreen()
+        }
+        Game.shared.checkArray()
+        if Game.shared.remainingWords.isEmpty {
             goToTheNextScreen()
         }
     }

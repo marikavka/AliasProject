@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 final class Game {
     
@@ -28,7 +29,7 @@ final class Game {
             return nil
         }
     }
-    private var remainingWords: [String] = []
+    var remainingWords: [String] = []
     
     private init() {}
     
@@ -56,7 +57,15 @@ final class Game {
     func getNextWord() -> String? {
         isRoundOver = false
         return remainingWords.popLast()?.capitalized
+        
     }
+    
+    func checkArray() {
+        if remainingWords.isEmpty {
+            isGameOver = true
+        }
+    }
+    
     private var currentTeamIndex = 0
     
     func finishTeamStep() {
@@ -104,5 +113,4 @@ final class Game {
             return []
         }
     }
-
 }

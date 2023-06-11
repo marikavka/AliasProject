@@ -11,41 +11,28 @@ final class RoundResultsViewController: UIViewController {
     
     private let roundTopicLabel: UILabel = {
         let label = UILabel().prepare()
-        label.font = .systemFont(ofSize: 45, weight: .bold)
-        label.textColor = UIColor(red: 0.17, green: 0.08, blue: 0, alpha: 1)
-        label.textAlignment = .center
-        label.numberOfLines = 0
+        label.formatLabel(label, title: "", size: 45)
         return label
     }()
     
     private let scoreLabel: UILabel = {
         let label = UILabel().prepare()
-        label.font = .systemFont(ofSize: 30)
-        label.textColor = UIColor(red: 0.17, green: 0.08, blue: 0, alpha: 1)
-        label.textAlignment = .center
-        label.numberOfLines = 0
+        label.formatLabel(label, title: "", size: 30)
         return label
     }()
     
     private let teamLogo = UIImageView()
     
     private let numberOfPoints: UILabel = {
-        let numberOfPoints = UILabel().prepare()
-        numberOfPoints.font = .systemFont(ofSize: 30)
-        numberOfPoints.textColor = UIColor(red: 0.17, green: 0.08, blue: 0, alpha: 1)
-        numberOfPoints.textAlignment = .center
-        numberOfPoints.numberOfLines = 0
-        return numberOfPoints
+        let label = UILabel().prepare()
+        label.formatLabel(label, title: "", size: 30)
+        return label
     }()
     
     private lazy var doneButton: UIButton = {
         let button = UIButton().prepare()
-        
-        button.setTitleColor(UIColor(red: 0.4, green: 0.5, blue: 0.3, alpha: 1), for: .normal)
-        button.backgroundColor = UIColor(red: 0.17, green: 0.08, blue: 0, alpha: 1)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        button.formatButton(button, title: "")
         button.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
-        button.layer.cornerRadius = 15
         return button
     }()
     
@@ -103,7 +90,9 @@ final class RoundResultsViewController: UIViewController {
     private func checkWinner() {
         if Game.shared.isGameOver {
             let winners = Game.shared.getWinners()
-            if winners.count == 1 {
+            if Game.shared.remainingWords.isEmpty {
+                roundTopicLabel.text = "Cлова закончились"
+            } else if winners.count == 1 {
                 let winner = winners[0]
                 roundTopicLabel.text = "Победа!🌟"
                 teamLogo.image = UIImage(named: winner.colorImageName)
@@ -117,6 +106,7 @@ final class RoundResultsViewController: UIViewController {
                 scoreLabel.text = getScoreLabelText() + "Cледующий ход команды \(curentTeam.name), готовы?"
                 teamLogo.image = UIImage(named: curentTeam.colorImageName)
                 doneButton.setTitle("продолжить", for: .normal)
+                roundTopicLabel.text = "Промежуточный результат"
             }
         }
     }

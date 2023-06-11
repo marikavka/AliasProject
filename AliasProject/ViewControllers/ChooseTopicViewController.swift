@@ -11,55 +11,47 @@ final class ChooseTopicViewController: UIViewController {
     
     private let label: UILabel = {
         let label = UILabel().prepare()
-        label.text = "Выберите тему"
-        label.font = .systemFont(ofSize: 30)
-        label.textColor = UIColor(named: "buttonColor")
-        label.textAlignment = .center
-        label.numberOfLines = 0
+        label.formatLabel(label, title: "Выберите тему", size: 30)
         return label
     }()
     
     private let labelMoreOpportunites: UILabel = {
         let label = UILabel().prepare()
-        label.text = "Выберите тему 'общая' и добавьте свои собственные слова в игру! "
-        label.font = .systemFont(ofSize: 15)
-        label.textColor = UIColor(named: "buttonColor")
-        label.textAlignment = .center
-        label.numberOfLines = 0
+        label.formatLabel(label, title: "Выберите тему 'общая' и добавьте свои собственные слова в игру!", size: 15)
         return label
     }()
     
     private lazy var celebritiesButton: UIButton = {
         let button = UIButton().prepare()
-        formatButton(button, title: "\(Category.celebrities.rawValue)")
+        button.formatButton(button, title: "\(Category.celebrities.rawValue)")
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return button
     }()
     
     private lazy var travelButton: UIButton = {
         let button = UIButton().prepare()
-        formatButton(button, title: "\(Category.travel.rawValue)")
+        button.formatButton(button, title: "\(Category.travel.rawValue)")
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return button
     }()
     
     private lazy var sportButton: UIButton = {
         let button = UIButton().prepare()
-        formatButton(button, title: "\(Category.sport.rawValue)")
+        button.formatButton(button, title: "\(Category.sport.rawValue)")
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return button
     }()
     
     private lazy var moviesButton: UIButton = {
         let button = UIButton().prepare()
-        formatButton(button, title: "\(Category.movies.rawValue)")
+        button.formatButton(button, title: "\(Category.movies.rawValue)")
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return button
     }()
     
     private lazy var mixButton: UIButton = {
         let button = UIButton().prepare()
-        formatButton(button, title: "\(Category.mixTheme.rawValue)")
+        button.formatButton(button, title: "\(Category.mixTheme.rawValue)")
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return button
     }()
@@ -93,7 +85,7 @@ final class ChooseTopicViewController: UIViewController {
             labelMoreOpportunites.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15),
             
             buttonStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            buttonStack.topAnchor.constraint(equalTo: label.topAnchor, constant: 100),
+            buttonStack.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             buttonStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 70)
         ])
         

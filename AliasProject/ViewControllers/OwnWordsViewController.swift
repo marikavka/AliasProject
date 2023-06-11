@@ -11,11 +11,7 @@ final class OwnWordsViewController: UIViewController {
     
     private let label: UILabel = {
         let label = UILabel().prepare()
-        label.text = "Загадайте свои слова"
-        label.font = .systemFont(ofSize: 30)
-        label.textColor = UIColor(named: "buttonColor")
-        label.textAlignment = .center
-        label.numberOfLines = 0
+        label.formatLabel(label, title: "Загадайте свои слова", size: 30)
         return label
     }()
     
@@ -29,14 +25,14 @@ final class OwnWordsViewController: UIViewController {
     
     private lazy var enterButton: UIButton = {
         let button = UIButton().prepare()
-        formatButton(button, title: "добавить")
+        button.formatButton(button, title: "добавить")
         button.addTarget(self, action: #selector(enterButtonTapped), for: .touchUpInside)
         return button
     }()
     
     private lazy var readyButton: UIButton = {
         let button = UIButton().prepare()
-        formatButton(button, title: "готово")
+        button.formatButton(button, title: "готово")
         button.addTarget(self, action: #selector(readyButtonTapped), for: .touchUpInside)
         return button
     }()

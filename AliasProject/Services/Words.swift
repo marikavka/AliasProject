@@ -214,14 +214,6 @@ enum Words {
     static let mixTheme = Words.commonThemeWords.shuffled()
 }
 
-func formatButton(_ button: UIButton, title: String) {
-    button.setTitle(title, for: .normal)
-    button.setTitleColor(UIColor(named: "backgroundColor"), for: .normal)
-    button.backgroundColor = UIColor(named: "buttonColor")
-    button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-    button.layer.cornerRadius = 15
-}
-
 enum Category: String {
     case celebrities = "знаменитости"
     case travel = "путешествия"
