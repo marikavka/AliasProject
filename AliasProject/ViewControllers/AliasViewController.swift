@@ -23,19 +23,19 @@ final class ViewController: UIViewController {
     
     private let label: UILabel = {
         let label = UILabel().prepare()
-        Game.shared.formatLabel(label, title: "A L I A S", size: 70)
+        label.formatLabel(label, title: "A L I A S", size: 70)
         return label
     }()
     
     private let labelPicture: UILabel = {
         let label = UILabel().prepare()
-        Game.shared.formatLabel(label, title: "🚀", size: 150)
+        label.formatLabel(label, title: "🚀", size: 150)
         return label
     }()
     
     private lazy var button: UIButton = {
         let button = UIButton().prepare()
-        Game.shared.formatButton(button, title: "начать игру")
+        button.formatButton(button, title: "начать игру")
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return button
     }()

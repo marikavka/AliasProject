@@ -11,47 +11,47 @@ final class ChooseTopicViewController: UIViewController {
     
     private let label: UILabel = {
         let label = UILabel().prepare()
-        Game.shared.formatLabel(label, title: "Выберите тему", size: 30)
+        label.formatLabel(label, title: "Выберите тему", size: 30)
         return label
     }()
     
     private let labelMoreOpportunites: UILabel = {
         let label = UILabel().prepare()
-        Game.shared.formatLabel(label, title: "Выберите тему 'общая' и добавьте свои собственные слова в игру!", size: 15)
+        label.formatLabel(label, title: "Выберите тему 'общая' и добавьте свои собственные слова в игру!", size: 15)
         return label
     }()
     
     private lazy var celebritiesButton: UIButton = {
         let button = UIButton().prepare()
-        Game.shared.formatButton(button, title: "\(Category.celebrities.rawValue)")
+        button.formatButton(button, title: "\(Category.celebrities.rawValue)")
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return button
     }()
     
     private lazy var travelButton: UIButton = {
         let button = UIButton().prepare()
-        Game.shared.formatButton(button, title: "\(Category.travel.rawValue)")
+        button.formatButton(button, title: "\(Category.travel.rawValue)")
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return button
     }()
     
     private lazy var sportButton: UIButton = {
         let button = UIButton().prepare()
-        Game.shared.formatButton(button, title: "\(Category.sport.rawValue)")
+        button.formatButton(button, title: "\(Category.sport.rawValue)")
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return button
     }()
     
     private lazy var moviesButton: UIButton = {
         let button = UIButton().prepare()
-        Game.shared.formatButton(button, title: "\(Category.movies.rawValue)")
+        button.formatButton(button, title: "\(Category.movies.rawValue)")
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return button
     }()
     
     private lazy var mixButton: UIButton = {
         let button = UIButton().prepare()
-        Game.shared.formatButton(button, title: "\(Category.mixTheme.rawValue)")
+        button.formatButton(button, title: "\(Category.mixTheme.rawValue)")
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return button
     }()

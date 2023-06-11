@@ -113,20 +113,4 @@ final class Game {
             return []
         }
     }
-    
-    func formatButton(_ button: UIButton, title: String) {
-        button.setTitle(title, for: .normal)
-        button.setTitleColor(UIColor(named: "backgroundColor"), for: .normal)
-        button.backgroundColor = UIColor(named: "buttonColor")
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-        button.layer.cornerRadius = 15
-    }
-    
-    func formatLabel(_ label: UILabel, title: String, size: CGFloat) {
-        label.text = title
-        label.font = .systemFont(ofSize: size)
-        label.textColor = UIColor(named: "buttonColor")
-        label.textAlignment = .center
-        label.numberOfLines = 0
-    }
 }

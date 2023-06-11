@@ -11,13 +11,13 @@ final class StartGameAndPointsViewController: UIViewController {
     
     private let roundTopicLabel: UILabel = {
         let label = UILabel().prepare()
-        Game.shared.formatLabel(label, title: "", size: 30)
+        label.formatLabel(label, title: "", size: 30)
         return label
     }()
     
     private let warningLabel: UILabel = {
         let label = UILabel().prepare()
-        Game.shared.formatLabel(label, title: "", size: 30)
+        label.formatLabel(label, title: "", size: 30)
         return label
     }()
     
@@ -25,13 +25,13 @@ final class StartGameAndPointsViewController: UIViewController {
     
     private let numberOfPoints: UILabel = {
         let label = UILabel().prepare()
-        Game.shared.formatLabel(label, title: "", size: 30)
+        label.formatLabel(label, title: "", size: 30)
         return label
     }()
     
     private lazy var doneButton: UIButton = {
         let button = UIButton().prepare()
-        Game.shared.formatButton(button, title: "старт")
+        button.formatButton(button, title: "старт")
         button.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
         return button
     }()

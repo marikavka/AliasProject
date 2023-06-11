@@ -11,13 +11,13 @@ final class RoundResultsViewController: UIViewController {
     
     private let roundTopicLabel: UILabel = {
         let label = UILabel().prepare()
-        Game.shared.formatLabel(label, title: "", size: 45)
+        label.formatLabel(label, title: "", size: 45)
         return label
     }()
     
     private let scoreLabel: UILabel = {
         let label = UILabel().prepare()
-        Game.shared.formatLabel(label, title: "", size: 30)
+        label.formatLabel(label, title: "", size: 30)
         return label
     }()
     
@@ -25,13 +25,13 @@ final class RoundResultsViewController: UIViewController {
     
     private let numberOfPoints: UILabel = {
         let label = UILabel().prepare()
-        Game.shared.formatLabel(label, title: "", size: 30)
+        label.formatLabel(label, title: "", size: 30)
         return label
     }()
     
     private lazy var doneButton: UIButton = {
         let button = UIButton().prepare()
-        Game.shared.formatButton(button, title: "")
+        button.formatButton(button, title: "")
         button.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
         return button
     }()

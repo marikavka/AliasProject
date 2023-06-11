@@ -13,7 +13,7 @@ final class ChooseTeamViewController: UIViewController {
     
     private let label: UILabel = {
         let label = UILabel().prepare()
-        Game.shared.formatLabel(label, title: "Выберите минимум 2 команды!", size: 30)
+        label.formatLabel(label, title: "Выберите минимум 2 команды!", size: 30)
         return label
     }()
     

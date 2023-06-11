@@ -11,7 +11,7 @@ final class InfoViewController: UIViewController {
     
     private let label: UILabel = {
         let label = UILabel().prepare()
-        Game.shared.formatLabel(
+        label.formatLabel(
             label,
             title: "Создано и протестировано \n \n Белинским Владиславом \n Купчинской Марией",
             size: 25
@@ -21,7 +21,7 @@ final class InfoViewController: UIViewController {
     
     private let labelPicture: UILabel = {
         let label = UILabel().prepare()
-        Game.shared.formatLabel(label, title: "👩🏽‍💻👨🏼‍💻", size: 150)
+        label.formatLabel(label, title: "👩🏽‍💻👨🏼‍💻", size: 150)
         return label
     }()
     

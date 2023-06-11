@@ -11,26 +11,26 @@ final class AdditionalWordsViewController: UIViewController {
     
     private let label: UILabel = {
         let label = UILabel().prepare()
-        Game.shared.formatLabel(label, title: "Хотите добавить свои слова?", size: 30)
+        label.formatLabel(label, title: "Хотите добавить свои слова?", size: 30)
         return label
     }()
     
     private let labelPicture: UILabel = {
         let label = UILabel().prepare()
-        Game.shared.formatLabel(label, title: "📲", size: 150)
+        label.formatLabel(label, title: "📲", size: 150)
         return label
     }()
     
     private lazy var buttonAddWords: UIButton = {
         let button = UIButton().prepare()
-        Game.shared.formatButton(button, title: "добавить слова")
+        button.formatButton(button, title: "добавить слова")
         button.addTarget(self, action: #selector(buttonTappedAddWords), for: .touchUpInside)
         return button
     }()
     
     private lazy var buttonStartGame: UIButton = {
         let button = UIButton().prepare()
-        Game.shared.formatButton(button, title: "начать игру")
+        button.formatButton(button, title: "начать игру")
         button.addTarget(self, action: #selector(buttonTappedStartGame), for: .touchUpInside)
         return button
     }()
