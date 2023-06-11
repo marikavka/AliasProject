@@ -13,11 +13,7 @@ final class ChooseTeamViewController: UIViewController {
     
     private let label: UILabel = {
         let label = UILabel().prepare()
-        label.text = "Выберите минимум 2 команды!"
-        label.font = .systemFont(ofSize: 30)
-        label.textColor = UIColor(red: 0.17, green: 0.08, blue: 0, alpha: 1)
-        label.textAlignment = .center
-        label.numberOfLines = 0
+        Game.shared.formatLabel(label, title: "Выберите минимум 2 команды!", size: 30)
         return label
     }()
     
@@ -52,8 +48,8 @@ final class ChooseTeamViewController: UIViewController {
     private lazy var doneButton: UIButton = {
         let button = UIButton().prepare()
         button.setTitle("готово", for: .normal)
-        button.setTitleColor(UIColor(red: 0.4, green: 0.5, blue: 0.3, alpha: 1), for: .normal)
-        button.backgroundColor = UIColor(red: 0.17, green: 0.08, blue: 0, alpha: 0.3)
+        button.setTitleColor(UIColor(named: "backgroundColor"), for: .normal)
+        button.backgroundColor = UIColor(named: "buttonColorClear")
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         button.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
         button.layer.cornerRadius = 15
@@ -71,7 +67,7 @@ final class ChooseTeamViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor(red: 0.4, green: 0.5, blue: 0.3, alpha: 1)
+        view.backgroundColor = UIColor(named: "backgroundColor")
         view.addSubview(label)
         view.addSubview(doneButton)
         view.addSubview(hStack)
@@ -99,7 +95,7 @@ final class ChooseTeamViewController: UIViewController {
             label.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15),
             
             hStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            hStack.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 70),
+            hStack.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             
             doneButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -70),
             doneButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 70),
@@ -115,26 +111,22 @@ final class ChooseTeamViewController: UIViewController {
     
     @objc func chooseTeam(_ sender: UIButton) {
         let index = 0
-        let name = teams[index].name
-        buttonActions(sender, index, name)
+        buttonActions(sender, index)
     }
     
     @objc func chooseTeamTwo(_ sender: UIButton) {
         let index = 1
-        let name = teams[index].name
-        buttonActions(sender, index, name)
+        buttonActions(sender, index)
     }
     
     @objc func chooseTeamThree(_ sender: UIButton) {
         let index = 2
-        let name = teams[index].name
-        buttonActions(sender, index, name)
+        buttonActions(sender, index)
     }
     
     @objc func chooseTeamFour(_ sender: UIButton) {
         let index = 3
-        let name = teams[index].name
-        buttonActions(sender, index, name)
+        buttonActions(sender, index)
     }
     
     
@@ -151,7 +143,8 @@ final class ChooseTeamViewController: UIViewController {
         }
     }
     
-    func buttonActions(_ sender: UIButton, _ index: Int, _ teamName: String) {
+    func buttonActions(_ sender: UIButton, _ index: Int) {
+        let teamName = teams[index].name
         if sender.currentImage == UIImage(named: teams[index].colorImageName) {
             sender.setImage(UIImage(named:teams[index].imageName), for: .normal)
             if let i = choosenTeams.firstIndex(where: { $0.name == teamName}) {
@@ -159,20 +152,19 @@ final class ChooseTeamViewController: UIViewController {
             }
         } else {
             sender.setImage( UIImage(named: teams[index].colorImageName), for: .normal)
-            
             choosenTeams.append(teams[index])
         }
         
         if choosenTeams.count >= 2 {
-            doneButton.backgroundColor = UIColor(red: 0.17, green: 0.08, blue: 0, alpha: 1)
+            doneButton.backgroundColor = UIColor(named: "buttonColor")
             doneButton.isEnabled = true
         } else {
-            doneButton.backgroundColor = UIColor(red: 0.17, green: 0.08, blue: 0, alpha: 0.3)
+            doneButton.backgroundColor = UIColor(named: "buttonColorClear")
             doneButton.isEnabled = false
         }
     }
     
 }
-    
+
 
 

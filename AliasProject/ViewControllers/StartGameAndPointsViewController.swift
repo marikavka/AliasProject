@@ -11,41 +11,28 @@ final class StartGameAndPointsViewController: UIViewController {
     
     private let roundTopicLabel: UILabel = {
         let label = UILabel().prepare()
-        label.font = .systemFont(ofSize: 30)
-        label.textColor = UIColor(red: 0.17, green: 0.08, blue: 0, alpha: 1)
-        label.textAlignment = .center
-        label.numberOfLines = 0
+        Game.shared.formatLabel(label, title: "", size: 30)
         return label
     }()
     
     private let warningLabel: UILabel = {
         let label = UILabel().prepare()
-        label.font = .systemFont(ofSize: 30)
-        label.textColor = UIColor(red: 0.17, green: 0.08, blue: 0, alpha: 1)
-        label.textAlignment = .center
-        label.numberOfLines = 0
+        Game.shared.formatLabel(label, title: "", size: 30)
         return label
     }()
     
     private let teamLogo = UIImageView().prepare()
     
     private let numberOfPoints: UILabel = {
-        let numberOfPoints = UILabel().prepare()
-        numberOfPoints.font = .systemFont(ofSize: 30)
-        numberOfPoints.textColor = UIColor(red: 0.17, green: 0.08, blue: 0, alpha: 1)
-        numberOfPoints.textAlignment = .center
-        numberOfPoints.numberOfLines = 0
-        return numberOfPoints
+        let label = UILabel().prepare()
+        Game.shared.formatLabel(label, title: "", size: 30)
+        return label
     }()
     
     private lazy var doneButton: UIButton = {
         let button = UIButton().prepare()
-        button.setTitle("старт", for: .normal)
-        button.setTitleColor(UIColor(red: 0.4, green: 0.5, blue: 0.3, alpha: 1), for: .normal)
-        button.backgroundColor = UIColor(red: 0.17, green: 0.08, blue: 0, alpha: 1)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        Game.shared.formatButton(button, title: "старт")
         button.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
-        button.layer.cornerRadius = 15
         return button
     }()
     
@@ -55,17 +42,17 @@ final class StartGameAndPointsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(red: 0.4, green: 0.5, blue: 0.3, alpha: 1)
+        view.backgroundColor = UIColor(named: "backgroundColor")
         
         rusTopicName = Game.shared.category?.rawValue
         
         vStack.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(vStack)
+        view.addSubview(doneButton)
         
         vStack.addArrangedSubview(teamLogo)
         vStack.addArrangedSubview(warningLabel)
         vStack.addArrangedSubview(numberOfPoints)
-        vStack.addArrangedSubview(doneButton)
         
         vStack.axis = .vertical
         vStack.spacing = 30
@@ -88,9 +75,13 @@ final class StartGameAndPointsViewController: UIViewController {
             vStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             vStack.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             vStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
-            teamLogo.widthAnchor.constraint(equalToConstant: 70),
-            teamLogo.heightAnchor.constraint(equalToConstant: 70),
-            doneButton.widthAnchor.constraint(equalToConstant: 230)
+            
+            teamLogo.widthAnchor.constraint(equalToConstant: 150),
+            teamLogo.heightAnchor.constraint(equalToConstant: 150),
+            
+            doneButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -70),
+            doneButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 70),
+            doneButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -70)
         ])
     }
     

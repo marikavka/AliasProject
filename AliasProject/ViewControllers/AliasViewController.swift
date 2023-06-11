@@ -13,7 +13,6 @@ extension UIView {
         self.translatesAutoresizingMaskIntoConstraints = false
         return self
     }
-    
 }
 
 final class ViewController: UIViewController {
@@ -24,36 +23,27 @@ final class ViewController: UIViewController {
     
     private let label: UILabel = {
         let label = UILabel().prepare()
-        label.text = "A L I A S"
-        label.font = .systemFont(ofSize: 70)
-        label.textColor = UIColor(red: 0.17, green: 0.08, blue: 0, alpha: 1)
-        label.textAlignment = .center
+        Game.shared.formatLabel(label, title: "A L I A S", size: 70)
         return label
     }()
     
     private let labelPicture: UILabel = {
         let label = UILabel().prepare()
-        label.text = "🚀"
-        label.font = .systemFont(ofSize: 150)
-        label.textAlignment = .center
+        Game.shared.formatLabel(label, title: "🚀", size: 150)
         return label
     }()
     
     private lazy var button: UIButton = {
         let button = UIButton().prepare()
-        button.setTitle("начать игру", for: .normal)
-        
-        button.setTitleColor(UIColor(red: 0.4, green: 0.5, blue: 0.3, alpha: 1), for: .normal)
-        button.backgroundColor = UIColor(red: 0.17, green: 0.08, blue: 0, alpha: 1)
+        Game.shared.formatButton(button, title: "начать игру")
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         return button
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor(red: 0.4, green: 0.5, blue: 0.3, alpha: 1)
+        view.backgroundColor = UIColor(named: "backgroundColor")
         view.addSubview(label)
         view.addSubview(button)
         view.addSubview(labelPicture)
@@ -61,24 +51,19 @@ final class ViewController: UIViewController {
         navigationItem.rightBarButtonItem = rulesButton
         navigationItem.leftBarButtonItem = infoButton
         
-        button.layer.cornerRadius = 15
-        
         NSLayoutConstraint.activate([
             label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 70),
-            label.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15),
-            label.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15),
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            labelPicture.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 70),
-            labelPicture.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15),
-            labelPicture.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15),
+            labelPicture.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            labelPicture.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -70),
             button.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 70),
             button.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -70),
-            
         ])
-        
     }
+    
     @objc func buttonTapped() {
         Game.shared.startNewGame()
         let vc = ChooseTeamViewController()

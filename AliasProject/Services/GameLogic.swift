@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 final class Game {
     
@@ -28,7 +29,7 @@ final class Game {
             return nil
         }
     }
-    private var remainingWords: [String] = []
+    var remainingWords: [String] = []
     
     private init() {}
     
@@ -56,7 +57,15 @@ final class Game {
     func getNextWord() -> String? {
         isRoundOver = false
         return remainingWords.popLast()?.capitalized
+        
     }
+    
+    func checkArray() {
+        if remainingWords.isEmpty {
+            isGameOver = true
+        }
+    }
+    
     private var currentTeamIndex = 0
     
     func finishTeamStep() {
@@ -104,5 +113,20 @@ final class Game {
             return []
         }
     }
-
+    
+    func formatButton(_ button: UIButton, title: String) {
+        button.setTitle(title, for: .normal)
+        button.setTitleColor(UIColor(named: "backgroundColor"), for: .normal)
+        button.backgroundColor = UIColor(named: "buttonColor")
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        button.layer.cornerRadius = 15
+    }
+    
+    func formatLabel(_ label: UILabel, title: String, size: CGFloat) {
+        label.text = title
+        label.font = .systemFont(ofSize: size)
+        label.textColor = UIColor(named: "buttonColor")
+        label.textAlignment = .center
+        label.numberOfLines = 0
+    }
 }

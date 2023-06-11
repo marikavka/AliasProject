@@ -11,55 +11,38 @@ final class AdditionalWordsViewController: UIViewController {
     
     private let label: UILabel = {
         let label = UILabel().prepare()
-        label.text = "Хотите добавить свои слова?"
-        label.font = .systemFont(ofSize: 30)
-        label.textColor = UIColor(red: 0.17, green: 0.08, blue: 0, alpha: 1)
-        label.textAlignment = .center
-        label.numberOfLines = 0
+        Game.shared.formatLabel(label, title: "Хотите добавить свои слова?", size: 30)
         return label
     }()
     
     private let labelPicture: UILabel = {
         let label = UILabel().prepare()
-        label.text = "📲"
-        label.font = .systemFont(ofSize: 150)
-        label.textAlignment = .center
+        Game.shared.formatLabel(label, title: "📲", size: 150)
         return label
     }()
     
     private lazy var buttonAddWords: UIButton = {
         let button = UIButton().prepare()
-        button.setTitle("добавить слова", for: .normal)
-        
-        button.setTitleColor(UIColor(red: 0.4, green: 0.5, blue: 0.3, alpha: 1), for: .normal)
-        button.backgroundColor = UIColor(red: 0.17, green: 0.08, blue: 0, alpha: 1)
+        Game.shared.formatButton(button, title: "добавить слова")
         button.addTarget(self, action: #selector(buttonTappedAddWords), for: .touchUpInside)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         return button
     }()
     
     private lazy var buttonStartGame: UIButton = {
         let button = UIButton().prepare()
-        button.setTitle("начать игру", for: .normal)
-        
-        button.setTitleColor(UIColor(red: 0.4, green: 0.5, blue: 0.3, alpha: 1), for: .normal)
-        button.backgroundColor = UIColor(red: 0.17, green: 0.08, blue: 0, alpha: 1)
+        Game.shared.formatButton(button, title: "начать игру")
         button.addTarget(self, action: #selector(buttonTappedStartGame), for: .touchUpInside)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         return button
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor(red: 0.4, green: 0.5, blue: 0.3, alpha: 1)
+        view.backgroundColor = UIColor(named: "backgroundColor")
         view.addSubview(label)
         view.addSubview(labelPicture)
         view.addSubview(buttonAddWords)
         view.addSubview(buttonStartGame)
-        
-        buttonStartGame.layer.cornerRadius = 15
-        buttonAddWords.layer.cornerRadius = 15
         
         NSLayoutConstraint.activate([
             label.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
