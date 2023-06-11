@@ -12,7 +12,7 @@ final class AdditionalWordsViewController: UIViewController {
     private let label: UILabel = {
         let label = UILabel().prepare()
         label.text = "Хотите добавить свои слова?"
-        label.font = .systemFont(ofSize: 40)
+        label.font = .systemFont(ofSize: 30)
         label.textColor = UIColor(red: 0.17, green: 0.08, blue: 0, alpha: 1)
         label.textAlignment = .center
         label.numberOfLines = 0
@@ -29,7 +29,7 @@ final class AdditionalWordsViewController: UIViewController {
     
     private lazy var buttonAddWords: UIButton = {
         let button = UIButton().prepare()
-        button.setTitle("Добавить слова", for: .normal)
+        button.setTitle("добавить слова", for: .normal)
         
         button.setTitleColor(UIColor(red: 0.4, green: 0.5, blue: 0.3, alpha: 1), for: .normal)
         button.backgroundColor = UIColor(red: 0.17, green: 0.08, blue: 0, alpha: 1)
@@ -40,7 +40,7 @@ final class AdditionalWordsViewController: UIViewController {
     
     private lazy var buttonStartGame: UIButton = {
         let button = UIButton().prepare()
-        button.setTitle("Начать игру", for: .normal)
+        button.setTitle("начать игру", for: .normal)
         
         button.setTitleColor(UIColor(red: 0.4, green: 0.5, blue: 0.3, alpha: 1), for: .normal)
         button.backgroundColor = UIColor(red: 0.17, green: 0.08, blue: 0, alpha: 1)
@@ -62,7 +62,7 @@ final class AdditionalWordsViewController: UIViewController {
         buttonAddWords.layer.cornerRadius = 15
         
         NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 70),
+            label.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
             label.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15),
             label.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15),
             
@@ -71,12 +71,12 @@ final class AdditionalWordsViewController: UIViewController {
             labelPicture.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15),
             
             buttonStartGame.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -70),
-            buttonStartGame.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 100),
-            buttonStartGame.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -100),
+            buttonStartGame.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 70),
+            buttonStartGame.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -70),
             
-            buttonAddWords.bottomAnchor.constraint(equalTo: buttonStartGame.bottomAnchor, constant: -50),
-            buttonAddWords.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -100),
-            buttonAddWords.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 100)
+            buttonAddWords.bottomAnchor.constraint(equalTo: buttonStartGame.bottomAnchor, constant: -70),
+            buttonAddWords.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -70),
+            buttonAddWords.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 70)
         ])
         
     }

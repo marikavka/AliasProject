@@ -73,7 +73,7 @@ final class RoundResultsViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             
-            doneButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5),
+            doneButton.widthAnchor.constraint(equalToConstant: 230),
             
             vStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             vStack.centerYAnchor.constraint(equalTo: view.centerYAnchor),
@@ -111,12 +111,12 @@ final class RoundResultsViewController: UIViewController {
                 roundTopicLabel.text = "Поздравляем, в игре ничья!"
             }
             scoreLabel.text = "Итоговый счет \n" + getScoreLabelText()
-            doneButton.setTitle("НОВАЯ ИГРА", for: .normal)
+            doneButton.setTitle("новая игра", for: .normal)
         } else {
             if let curentTeam = Game.shared.currentTeam {
                 scoreLabel.text = getScoreLabelText() + "Cледующий ход команды \(curentTeam.name), готовы?"
                 teamLogo.image = UIImage(named: curentTeam.colorImageName)
-                doneButton.setTitle("ПРОДОЛЖИТЬ", for: .normal)
+                doneButton.setTitle("продолжить", for: .normal)
             }
         }
     }

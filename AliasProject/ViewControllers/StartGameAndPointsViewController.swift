@@ -40,7 +40,7 @@ final class StartGameAndPointsViewController: UIViewController {
     
     private lazy var doneButton: UIButton = {
         let button = UIButton().prepare()
-        button.setTitle("СТАРТ", for: .normal)
+        button.setTitle("старт", for: .normal)
         button.setTitleColor(UIColor(red: 0.4, green: 0.5, blue: 0.3, alpha: 1), for: .normal)
         button.backgroundColor = UIColor(red: 0.17, green: 0.08, blue: 0, alpha: 1)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
@@ -85,14 +85,12 @@ final class StartGameAndPointsViewController: UIViewController {
         }
         
         NSLayoutConstraint.activate([
-            
-            doneButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5),
-            
             vStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             vStack.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             vStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
             teamLogo.widthAnchor.constraint(equalToConstant: 70),
-            teamLogo.heightAnchor.constraint(equalToConstant: 70)
+            teamLogo.heightAnchor.constraint(equalToConstant: 70),
+            doneButton.widthAnchor.constraint(equalToConstant: 230)
         ])
     }
     

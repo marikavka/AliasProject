@@ -16,7 +16,7 @@ enum Words {
         "Гомер",
         "Виктор Цой",
         "Бейонсе",
-        "Петр III",
+        "Петр 3",
         "Криштиану Роналду",
         "Илон Маск",
         "Гаврило Принцип",
@@ -205,7 +205,7 @@ enum Words {
         "Блондинка в законе",
         "Битва шефов",
         "Помогите, я уменьшил свою училку!",
-        "выбор Иви Приключения Паддингтона 2",
+        "Приключения Паддингтона 2",
         "Дедушка НЕлегкого поведения"
     ]
     
@@ -223,11 +223,11 @@ func formatButton(_ button: UIButton, title: String) {
 }
 
 enum Category: String {
-    case celebrities = "Знаменитости"
-    case travel = "Путешествия"
-    case sport = "Спорт"
-    case movies = "Фильмы"
-    case mixTheme = "Общая"
+    case celebrities = "знаменитости"
+    case travel = "путешествия"
+    case sport = "спорт"
+    case movies = "фильмы"
+    case mixTheme = "общая"
     
     var words: [String] {
         switch self {

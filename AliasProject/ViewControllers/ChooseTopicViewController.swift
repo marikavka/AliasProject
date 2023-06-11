@@ -11,8 +11,18 @@ final class ChooseTopicViewController: UIViewController {
     
     private let label: UILabel = {
         let label = UILabel().prepare()
-        label.text = "Выбирайте тему"
+        label.text = "Выберите тему"
         label.font = .systemFont(ofSize: 30)
+        label.textColor = UIColor(named: "buttonColor")
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    private let labelMoreOpportunites: UILabel = {
+        let label = UILabel().prepare()
+        label.text = "Выберите тему 'общая' и добавьте свои собственные слова в игру! "
+        label.font = .systemFont(ofSize: 15)
         label.textColor = UIColor(named: "buttonColor")
         label.textAlignment = .center
         label.numberOfLines = 0
@@ -61,7 +71,7 @@ final class ChooseTopicViewController: UIViewController {
         view.backgroundColor = UIColor(named: "backgroundColor")
         view.addSubview(label)
         view.addSubview(celebritiesButton)
-        
+        view.addSubview(labelMoreOpportunites)
         view.addSubview(buttonStack)
         
         buttonStack.addArrangedSubview(celebritiesButton)
@@ -75,12 +85,16 @@ final class ChooseTopicViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             label.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
-            label.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
-            label.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
+            label.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15),
+            label.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15),
+            
+            labelMoreOpportunites.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30),
+            labelMoreOpportunites.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15),
+            labelMoreOpportunites.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15),
             
             buttonStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             buttonStack.topAnchor.constraint(equalTo: label.topAnchor, constant: 100),
-            buttonStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 100)
+            buttonStack.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 70)
         ])
         
     }

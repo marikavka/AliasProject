@@ -29,14 +29,14 @@ final class OwnWordsViewController: UIViewController {
     
     private lazy var enterButton: UIButton = {
         let button = UIButton().prepare()
-        formatButton(button, title: "Добавить")
+        formatButton(button, title: "добавить")
         button.addTarget(self, action: #selector(enterButtonTapped), for: .touchUpInside)
         return button
     }()
     
     private lazy var readyButton: UIButton = {
         let button = UIButton().prepare()
-        formatButton(button, title: "Готово")
+        formatButton(button, title: "готово")
         button.addTarget(self, action: #selector(readyButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -68,9 +68,9 @@ final class OwnWordsViewController: UIViewController {
             
             newWordTF.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.5),
             
-            enterButton.widthAnchor.constraint(equalTo: newWordTF.widthAnchor, multiplier: 1),
+            enterButton.widthAnchor.constraint(equalToConstant: 230),
             
-            readyButton.widthAnchor.constraint(equalTo: enterButton.widthAnchor, multiplier: 1)
+            readyButton.widthAnchor.constraint(equalToConstant: 230)
         ])
     }
     

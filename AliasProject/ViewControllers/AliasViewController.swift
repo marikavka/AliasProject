@@ -20,6 +20,8 @@ final class ViewController: UIViewController {
     
     private lazy var rulesButton = UIBarButtonItem(title: "Как играть?", style: .plain, target: self, action: #selector(rulesButtonTapped))
     
+    private lazy var infoButton = UIBarButtonItem(title: "Авторы", style: .plain, target: self, action: #selector(infoButtonTapped))
+    
     private let label: UILabel = {
         let label = UILabel().prepare()
         label.text = "A L I A S"
@@ -57,6 +59,7 @@ final class ViewController: UIViewController {
         view.addSubview(labelPicture)
         
         navigationItem.rightBarButtonItem = rulesButton
+        navigationItem.leftBarButtonItem = infoButton
         
         button.layer.cornerRadius = 15
         
@@ -70,8 +73,8 @@ final class ViewController: UIViewController {
             labelPicture.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15),
             
             button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -70),
-            button.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 100),
-            button.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -100),
+            button.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 70),
+            button.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -70),
             
         ])
         
@@ -88,6 +91,12 @@ final class ViewController: UIViewController {
     
     @objc func rulesButtonTapped() {
         let vc = RulesViewController()
+        navigationItem.backButtonTitle = ""
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc func infoButtonTapped() {
+        let vc = InfoViewController()
         navigationItem.backButtonTitle = ""
         navigationController?.pushViewController(vc, animated: true)
     }
